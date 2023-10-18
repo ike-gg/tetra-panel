@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { Toaster } from "~/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,8 +24,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.cdnfonts.com/css/monument-extended"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.cdnfonts.com/css/gg-sans-2"
+          rel="stylesheet"
+        />
+      </head>
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>
+        <Toaster />
       </body>
     </html>
   );
