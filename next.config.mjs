@@ -5,6 +5,16 @@
 await import("./src/env.mjs");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.discordapp.com",
+        port: "",
+      },
+    ],
+  },
+};
 
 export default config;
