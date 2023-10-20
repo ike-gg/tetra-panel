@@ -2,15 +2,16 @@ import { type PartialGuild } from "discord-oauth2";
 import { cookies } from "next/headers";
 import { GuildButton } from "~/components/guilds/GuildButton";
 import { TypographyH2 } from "~/components/ui/typography";
+import { endpoints } from "~/constants/apiroutes";
 
 export default async function PageGuikdsHomeParallel() {
-  const guildsRequest = await fetch("http://localhost:3002/guilds", {
+  const request = await fetch(endpoints.getUserGuilds, {
     headers: { Cookie: cookies().toString() },
     cache: "force-cache",
   });
 
   const { guilds, managingGuilds, guildsMissingTetra } =
-    (await guildsRequest.json()) as {
+    (await request.json()) as {
       guilds: PartialGuild[];
       managingGuilds: PartialGuild[];
       guildsMissingTetra: PartialGuild[];
