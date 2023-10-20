@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
 import { buttonVariants } from "~/components/ui/button";
+import { routes } from "~/constants/routes";
 import { firstLetters } from "~/lib/utils";
 import { getServerAuthSession } from "~/server/auth";
 
@@ -12,8 +14,10 @@ export default async function PanelLayout({
 }) {
   const session = await getServerAuthSession();
 
+  if (!session) redirect(routes.auth);
+
   return (
-    <div>
+    <div className="min-h-screen">
       <nav className="sticky top-0 border-b border-neutral-200 bg-white shadow-lg shadow-neutral-300/25">
         <div className="mx-auto flex max-w-screen-xl items-center gap-2 p-4">
           <Link href="/" className="items-top flex gap-2">
@@ -37,7 +41,12 @@ export default async function PanelLayout({
           </Link>
         </div>
       </nav>
-      <div className="m-4 mx-auto max-w-screen-xl px-4">{children}</div>
+      <div className="m-4 mx-auto h-full min-h-[calc(100vh-16rem)] max-w-screen-xl px-4">
+        {children}
+      </div>
+      <footer className="m-4 mx-auto max-w-screen-xl bg-gradient-to-b from-neutral-50 to-neutral-200 px-4">
+        hello!
+      </footer>
     </div>
   );
 }
