@@ -14,8 +14,8 @@ export default async function PanelLayout({
 
   return (
     <div>
-      <nav className="sticky top-0 border-b border-neutral-200 bg-white p-4 shadow-lg shadow-neutral-300/25">
-        <div className="mx-auto flex max-w-screen-xl items-center gap-2 px-4">
+      <nav className="sticky top-0 border-b border-neutral-200 bg-white shadow-lg shadow-neutral-300/25">
+        <div className="mx-auto flex max-w-screen-xl items-center gap-2 p-4">
           <Link href="/" className="items-top flex gap-2">
             <h2 className="font-heading text-3xl">Tetra</h2>
             <Badge className="h-fit w-fit">PANEL</Badge>
