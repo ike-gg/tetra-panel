@@ -4,7 +4,7 @@
 import { type ManualAdjustment } from "@prisma/client";
 import Link from "next/link";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { tasks } from "~/constants/routes";
+import { routes } from "~/constants/routes";
 import { useEffect, useMemo } from "react";
 import useCountDown from "react-countdown-hook";
 import { cn } from "~/lib/utils";
@@ -55,7 +55,7 @@ export const TaskCard = ({ taskDetails }: Props) => {
       <ContextMenuTrigger>
         <Link
           key={id}
-          href={tasks.id(id)}
+          href={routes.tasks.id(id)}
           className={cn(
             "flex min-w-[16rem] items-center gap-3 rounded-lg border border-neutral-200 bg-gradient-to-br from-neutral-50 via-neutral-200/75 to-neutral-100 p-4 shadow-lg hover:border-neutral-400",
             timeleft < 300000 && "animate-pulse",

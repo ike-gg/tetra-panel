@@ -4,7 +4,7 @@ import { type PartialGuild } from "discord-oauth2";
 import { Button, type ButtonProps } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
-import { guilds } from "~/constants/routes";
+import { routes } from "~/constants/routes";
 import { toast } from "sonner";
 
 interface Props extends ButtonProps {
@@ -41,7 +41,7 @@ export const GuildButton = ({ guild, asInvite = false, ...props }: Props) => {
 
   return (
     <Button {...props} asChild>
-      <Link href={guilds.id(id)}>
+      <Link href={routes.guilds.id(id)}>
         <Avatar className="mr-2 h-7 w-7">
           <AvatarImage
             src={`https://cdn.discordapp.com/icons/${id}/${icon}.png`}
