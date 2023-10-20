@@ -44,8 +44,10 @@ export default async function PanelLayout({
       <div className="m-4 mx-auto h-full min-h-[calc(100vh-16rem)] max-w-screen-xl px-4">
         {children}
       </div>
-      <footer className="m-4 mx-auto max-w-screen-xl bg-gradient-to-b from-neutral-50 to-neutral-200 px-4">
-        hello!
+      <footer className="border-t-2">
+        <div className="mx-auto max-w-screen-xl px-4">
+          fooooooooter soooooon
+        </div>
       </footer>
     </div>
   );
