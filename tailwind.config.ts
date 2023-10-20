@@ -7,6 +7,7 @@ export default {
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
+    "./app/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
@@ -97,6 +98,9 @@ export default {
       },
       backgroundImage: {
         grainy: "url(https://grainy-gradients.vercel.app/noise.svg)",
+      },
+      gridTemplateColumns: {
+        "16": "repeat(16, minmax(0, 1fr))",
       },
     },
   },

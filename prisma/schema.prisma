@@ -15,7 +15,19 @@ datasource db {
     relationMode = "prisma"
 }
 
+model ManualAdjustment {
+    id String @id @default(cuid())
+    guildId String
+    guildName String
+    guildIcon String?
+    emoteName String
+    emoteUrl String
+    expiresOn DateTime
+    accountId String
+    account Account? @relation(fields: [accountId], references: [providerAccountId])
 
+    @@index([accountId])
+}
 
 // Necessary for Next auth
 model Account {
@@ -23,7 +35,7 @@ model Account {
     userId            String
     type              String
     provider          String
-    providerAccountId String
+    providerAccountId String @unique
     refresh_token     String? @db.Text
     access_token      String? @db.Text
     expires_at        Int?
@@ -32,6 +44,7 @@ model Account {
     id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    manualAdjustment ManualAdjustment[]
 
     @@unique([provider, providerAccountId])
     @@index([userId])
