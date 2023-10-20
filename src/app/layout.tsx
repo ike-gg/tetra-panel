@@ -40,7 +40,7 @@ export default function RootLayout({
       </head>
       <body className={`font-sans ${inter.variable} bg-neutral-50`}>
         <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>
-        <Toaster />
+        <Toaster duration={60 * 1000} />
       </body>
     </html>
   );

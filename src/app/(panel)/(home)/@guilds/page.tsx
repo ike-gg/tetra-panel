@@ -44,7 +44,12 @@ export default async function PageGuikdsHomeParallel() {
           <TypographyH2>Add a bot</TypographyH2>
           <div className="flex flex-wrap gap-2">
             {guildsMissingTetra?.map((guild) => (
-              <GuildButton variant="outline" guild={guild} key={guild.id} />
+              <GuildButton
+                asInvite
+                variant="outline"
+                guild={guild}
+                key={guild.id}
+              />
             ))}
           </div>
         </div>
