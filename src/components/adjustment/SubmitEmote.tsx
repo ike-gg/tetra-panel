@@ -26,8 +26,7 @@ interface Props {
 }
 
 export const SubmitEmote = ({ isCorrectSize, modifiedBase64, task }: Props) => {
-  const { error, loading, setError, setLoading, setSuccess, success } =
-    useFeedback();
+  const { error, loading, setError, setLoading, success } = useFeedback();
 
   const router = useRouter();
 
@@ -50,12 +49,12 @@ export const SubmitEmote = ({ isCorrectSize, modifiedBase64, task }: Props) => {
       };
 
       if (!request.ok) {
-        setError(error);
+        setError(`${request.status}: ${error}`);
       }
 
       if (request.ok) {
         toast.success("Emote added!", { description: message });
-        router.replace(routes.panel);
+        router.replace(routes.panel + `?f=${task.id}`);
       }
     } catch (error) {
       setError(String(error));

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import "react-image-crop/dist/ReactCrop.css";
-import { ScissorsIcon } from "@radix-ui/react-icons";
+import { CropIcon } from "@radix-ui/react-icons";
 import { useRef, useState } from "react";
 import ReactCrop, { type Crop } from "react-image-crop";
 import { useAdjustmentStore } from "~/app/store/adjustmentStore";
@@ -50,7 +50,8 @@ export const CropOption = ({ emoteUrl }: Props) => {
             variant={crop ? "default" : "secondary"}
             className="flex flex-1 items-center gap-2"
           >
-            <ScissorsIcon /> Cut
+            <CropIcon /> Crop{" "}
+            {crop && `${crop.x1},${crop.y1}-${crop.x2},${crop.y2}`}
           </Button>
         </DialogTrigger>
         {crop && (
@@ -64,7 +65,9 @@ export const CropOption = ({ emoteUrl }: Props) => {
             <DialogDescription>witam!</DialogDescription>
           </DialogHeader>
           <ReactCrop
-            className="rounded-lg"
+            minHeight={10}
+            minWidth={10}
+            className="rounded-lg border shadow-xl"
             crop={cropLib}
             onChange={(c) => setCropLib(c)}
           >

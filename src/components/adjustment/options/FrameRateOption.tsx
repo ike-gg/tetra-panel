@@ -22,7 +22,7 @@ export const FrameRateOption = () => {
         className="flex items-center gap-2"
         onClick={() => setActive((p) => !p)}
       >
-        <DoubleArrowRightIcon /> frame {frameRate}
+        <DoubleArrowRightIcon /> Frame reduction {frameRate}
       </Button>
       {active && (
         <Slider

@@ -38,6 +38,12 @@ interface AdjustmentOptionsStateMethods {
 
 const initialState: AdjustmentOptionsStateProperties = {
   fitting: "contain",
+  colors: undefined,
+  crop: undefined,
+  cut: undefined,
+  frameRate: undefined,
+  lossy: undefined,
+  scale: undefined,
 };
 
 interface AdjustmentState

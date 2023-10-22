@@ -1,3 +1,4 @@
+import { DimensionsIcon } from "@radix-ui/react-icons";
 import {
   type FittingOption,
   useAdjustmentStore,
@@ -19,7 +20,7 @@ export const FittingsOption = () => {
             key={option + index}
             onClick={() => setFitting(option)}
           >
-            {option}
+            <DimensionsIcon /> {option}
           </Button>
         );
       })}

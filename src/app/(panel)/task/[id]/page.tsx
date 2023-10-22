@@ -4,6 +4,8 @@ import { Adjustment } from "~/components/adjustment/Adjustment";
 import { arrayBufferToBase64 } from "~/lib/utils";
 import { getServerAuthSession } from "~/server/auth";
 
+export const dynamic = "force-dynamic";
+
 export default async function TaskIdPage({
   params,
 }: {

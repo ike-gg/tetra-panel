@@ -4,6 +4,8 @@ import { TypographyH2 } from "~/components/ui/typography";
 
 import { getServerAuthSession } from "~/server/auth";
 
+export const dynamic = "force-dynamic";
+
 export default async function PageTasksHomeParallel() {
   const session = await getServerAuthSession();
 

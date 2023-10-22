@@ -18,8 +18,9 @@ import { FrameRateOption } from "./options/FrameRateOption";
 import { FittingsOption } from "./options/FittingsOption";
 import { CropOption } from "./options/CropOption";
 import { EmotePreview } from "./EmotePreview";
-import { Progress } from "../ui/progress";
 import { SubmitEmote } from "./SubmitEmote";
+import { Separator } from "../ui/separator";
+import { AdjustmentProgress } from "./AdjustmentProgress";
 
 interface Props {
   details: ManualAdjustment;
@@ -32,6 +33,8 @@ const MAX_EMOTE_SIZE = 262144;
 export function Adjustment({ details, emoteBase64, metadata }: Props) {
   const { colors, crop, cut, frameRate, lossy, scale, fitting, reset } =
     useAdjustmentStore((state) => state);
+
+  useEffect(() => reset(), []);
 
   const { processing, processed, processedSize } = useGifsicle({
     buffer: emoteBase64,
@@ -48,18 +51,9 @@ export function Adjustment({ details, emoteBase64, metadata }: Props) {
     }
   }, [processedSize]);
 
-  useEffect(() => reset(), []);
-
   return (
     <div className="mx-auto max-w-lg space-y-4">
-      ADJUSTMENT
       <div className="bg-radar flex w-full flex-col items-center gap-4 rounded-lg border border-neutral-200 from-neutral-100 to-neutral-50 p-12 py-8">
-        {/* <p>wypierdalaj!</p>
-        <Progress
-          className="flex h-2 bg-neutral-200"
-          value={Math.min((processedSize! / MAX_EMOTE_SIZE) * 100, 100)}
-          max={1}
-        /> */}
         <div className="flex w-full items-center justify-between gap-6">
           <EmotePreview
             base64={`data:image;base64,${emoteBase64}`}
@@ -77,24 +71,33 @@ export function Adjustment({ details, emoteBase64, metadata }: Props) {
           />
         </div>
       </div>
-      <div className="mx-auto flex max-w-xl flex-col items-center gap-4">
+      <div className="flex flex-col gap-4">
         <div className="grid w-full grid-cols-2 gap-4">
           <ColorsOption />
           <LossyOption />
           <ScaleOption />
           <FrameRateOption />
         </div>
+        <Separator />
         <div className="w-full">
           <CutOption frames={metadata.pages!} />
         </div>
+        <Separator />
         <FittingsOption />
+        <Separator />
         <CropOption emoteUrl={details.emoteUrl} />
       </div>
-      <SubmitEmote
-        isCorrectSize={isCorrectSize}
-        modifiedBase64={processed}
-        task={details}
-      />
+      <div className="flex flex-col gap-4 rounded-md border bg-neutral-100 p-8">
+        <AdjustmentProgress
+          currentSize={processedSize!}
+          maxSize={MAX_EMOTE_SIZE}
+        />
+        <SubmitEmote
+          isCorrectSize={isCorrectSize}
+          modifiedBase64={processed}
+          task={details}
+        />
+      </div>
     </div>
   );
 }
