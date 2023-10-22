@@ -1,3 +1,5 @@
+const panel = "/";
+
 const auth = "/auth";
 
 const tasks = {
@@ -8,6 +10,6 @@ const guilds = {
   id: (id: string) => `/guild/${id}`,
 };
 
-const routes = { guilds, tasks, auth };
+const routes = { guilds, tasks, auth, panel };
 
 export { routes };
