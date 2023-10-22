@@ -8,7 +8,6 @@ import { Button } from "~/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -61,8 +60,7 @@ export const CropOption = ({ emoteUrl }: Props) => {
         )}
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Crop your gif</DialogTitle>
-            <DialogDescription>witam!</DialogDescription>
+            <DialogTitle>Crop emote</DialogTitle>
           </DialogHeader>
           <ReactCrop
             minHeight={10}
