@@ -98,6 +98,8 @@ export default {
       },
       backgroundImage: {
         grainy: "url(https://grainy-gradients.vercel.app/noise.svg)",
+        radar:
+          "radial-gradient(circle, rgba(0, 0, 0, 0), var(--tw-gradient-to) 5%, var(--tw-gradient-from) 25%, var(--tw-gradient-to) 25%, var(--tw-gradient-from) 45%, var(--tw-gradient-to) 45%, var(--tw-gradient-from) 65%, var(--tw-gradient-to) 65%, var(--tw-gradient-from) 85%, var(--tw-gradient-to) 85%, var(--tw-gradient-from) 100%, var(--tw-gradient-to) 100%)",
       },
       gridTemplateColumns: {
         "16": "repeat(16, minmax(0, 1fr))",
