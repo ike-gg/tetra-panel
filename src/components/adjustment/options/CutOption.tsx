@@ -20,7 +20,7 @@ export const CutOption = ({ frames }: Props) => {
   return (
     <div className="flex flex-1 flex-col gap-4">
       <Button
-        variant={active ? "default" : "secondary"}
+        variant={active ? "outline" : "secondary"}
         className="flex items-center gap-2"
         onClick={() => setActive((p) => !p)}
       >

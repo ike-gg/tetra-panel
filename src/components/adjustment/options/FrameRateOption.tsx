@@ -18,7 +18,7 @@ export const FrameRateOption = () => {
   return (
     <div className="flex flex-col gap-4">
       <Button
-        variant={active ? "default" : "secondary"}
+        variant={active ? "outline" : "secondary"}
         className="flex items-center gap-2"
         onClick={() => setActive((p) => !p)}
       >

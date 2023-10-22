@@ -32,6 +32,7 @@ export default function LoadingTask() {
         </div>
         <Separator className="col-span-2" />
         <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-[158px] w-full" />
       </div>
     </div>
   );

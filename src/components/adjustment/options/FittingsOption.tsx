@@ -15,7 +15,7 @@ export const FittingsOption = () => {
       {options.map((option, index) => {
         return (
           <Button
-            variant={fitting === option ? "default" : "secondary"}
+            variant={fitting === option ? "outline" : "secondary"}
             className="flex flex-1 items-center gap-2 capitalize"
             key={option + index}
             onClick={() => setFitting(option)}

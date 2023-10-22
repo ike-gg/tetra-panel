@@ -47,7 +47,7 @@ export const CropOption = ({ emoteUrl }: Props) => {
       <div className="flex w-full flex-1 gap-4">
         <DialogTrigger asChild>
           <Button
-            variant={crop ? "default" : "secondary"}
+            variant={crop ? "outline" : "secondary"}
             className="flex flex-1 items-center gap-2"
           >
             <CropIcon /> Crop{" "}
