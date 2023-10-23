@@ -20,7 +20,7 @@ export const GuildButton = ({ guild, asInvite = false, ...props }: Props) => {
       <Button
         {...props}
         onClick={() =>
-          toast.error("Tetra not joined here yet.", {
+          toast("Tetra not joined there yet.", {
             action: {
               label: "Invite bot",
               onClick: () => window.open("/invite"),
@@ -29,9 +29,11 @@ export const GuildButton = ({ guild, asInvite = false, ...props }: Props) => {
         }
       >
         <Avatar className="mr-2 h-7 w-7">
-          <AvatarImage
-            src={`https://cdn.discordapp.com/icons/${id}/${icon}.png`}
-          />
+          {icon && (
+            <AvatarImage
+              src={`https://cdn.discordapp.com/icons/${id}/${icon}.png`}
+            />
+          )}
           <AvatarFallback>{name.at(0)}</AvatarFallback>
         </Avatar>
         {name}
