@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import { endpoints } from "~/constants/apiroutes";
 import { useState } from "react";
 
-type EmoteProp = Omit<Omit<Emotes, "accountId">, "id">;
+type EmoteProp = Omit<Omit<Omit<Emotes, "expiresOn">, "accountId">, "id">;
 
 interface Props {
   details: EmoteProp;
