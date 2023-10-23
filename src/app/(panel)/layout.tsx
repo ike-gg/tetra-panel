@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { type ReactNode } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
 import { buttonVariants } from "~/components/ui/button";
@@ -9,8 +10,10 @@ import { getServerAuthSession } from "~/server/auth";
 
 export default async function PanelLayout({
   children,
+  context,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
+  context: ReactNode;
 }) {
   const session = await getServerAuthSession();
 
@@ -24,6 +27,7 @@ export default async function PanelLayout({
             <h2 className="font-heading text-3xl">Tetra</h2>
             <Badge className="h-fit w-fit">PANEL</Badge>
           </Link>
+          {context}
           <Link
             href="/user"
             className={buttonVariants({
