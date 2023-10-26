@@ -12,6 +12,30 @@ export function firstLetters(input: string) {
     .join("");
 }
 
+interface GetIconOptions {
+  size?: 16 | 32 | 64 | 128 | 256 | 512;
+}
+
+export function getGuildIcon(
+  guildId: string,
+  iconId: string,
+  options?: GetIconOptions,
+) {
+  return `https://cdn.discordapp.com/icons/${guildId}/${iconId}${
+    options?.size ? `?size=${options.size}` : ""
+  }`;
+}
+
+export function getGuildBanner(
+  guildId: string,
+  bannerId: string,
+  options?: GetIconOptions,
+) {
+  return `https://cdn.discordapp.com/banners/${guildId}/${bannerId}${
+    options?.size ? `?size=${options.size}` : ""
+  }`;
+}
+
 export function arrayBufferToBase64(arrayBuffer: ArrayBuffer): string {
   const uint8Array = new Uint8Array(arrayBuffer);
   let binaryString = "";

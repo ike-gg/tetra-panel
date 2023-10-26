@@ -1,7 +1,5 @@
 "use client";
 
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @next/next/no-img-element */
 import { type Emotes } from "@prisma/client";
 import {
   ContextMenu,
@@ -14,26 +12,22 @@ import {
   ContextMenuTrigger,
 } from "../ui/context-menu";
 import { useEmoteContextStore } from "~/app/store/emoteContextStore";
-import { cn } from "~/lib/utils";
+import { cn, getGuildIcon } from "~/lib/utils";
 import { toast } from "sonner";
 import { endpoints } from "~/constants/apiroutes";
 import { useState } from "react";
+import Image from "next/image";
+import { GuildStickerManager } from "discord.js";
 
 type EmoteProp = Omit<Omit<Omit<Emotes, "expiresOn">, "accountId">, "id">;
 
 interface Props {
   details: EmoteProp;
   className?: string;
-  canBeDeleted?: boolean;
   guildId?: string;
 }
 
-export const Emote = ({
-  details,
-  className,
-  canBeDeleted = false,
-  guildId,
-}: Props) => {
+export const Emote = ({ details, className, guildId }: Props) => {
   const { emoteName, emoteUrl, origin, reference } = details;
 
   const [isDeleted, setIsDeleted] = useState(false);
@@ -100,11 +94,13 @@ export const Emote = ({
     <ContextMenu>
       <ContextMenuTrigger>
         <div className={cn("flex flex-col gap-1", className)}>
-          <img
+          <Image
             draggable={false}
             className="aspect-square w-full select-none rounded-md border border-neutral-300 object-contain shadow-md"
             src={emoteUrl}
             alt={`emote ${emoteName}`}
+            width={96}
+            height={96}
           />
           <p className="truncate text-xs text-muted-foreground">{emoteName}</p>
         </div>
@@ -131,10 +127,12 @@ export const Emote = ({
                 >
                   {guild.name}
                   {guild.icon && (
-                    <img
-                      src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`}
-                      alt="xd"
-                      className="h-5 w-5 rounded-full"
+                    <Image
+                      src={getGuildIcon(guild.id, guild.icon, { size: 16 })}
+                      alt="guild icon for"
+                      className="ml-3 h-5 w-5 rounded-full"
+                      width={16}
+                      height={16}
                     />
                   )}
                 </ContextMenuItem>
@@ -142,7 +140,7 @@ export const Emote = ({
             </ContextMenuSubContent>
           </ContextMenuSub>
         )}
-        {canBeDeleted && (
+        {guildId && guilds && guilds.some((g) => g.id === guildId) && (
           <ContextMenuItem
             onClick={() => {
               toast.promise(deleteEmote(), {

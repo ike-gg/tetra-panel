@@ -6,6 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { routes } from "~/constants/routes";
 import { toast } from "sonner";
+import { getGuildIcon } from "~/lib/utils";
+import Image from "next/image";
 
 interface Props extends ButtonProps {
   guild: PartialGuild;
@@ -30,9 +32,14 @@ export const GuildButton = ({ guild, asInvite = false, ...props }: Props) => {
       >
         <Avatar className="mr-2 h-7 w-7">
           {icon && (
-            <AvatarImage
-              src={`https://cdn.discordapp.com/icons/${id}/${icon}.png`}
-            />
+            <AvatarImage asChild src={getGuildIcon(id, icon, { size: 32 })}>
+              <Image
+                src={getGuildIcon(id, icon, { size: 32 })}
+                alt={`icon of ${name} guild`}
+                width={32}
+                height={32}
+              />
+            </AvatarImage>
           )}
           <AvatarFallback>{name.at(0)}</AvatarFallback>
         </Avatar>
@@ -45,9 +52,16 @@ export const GuildButton = ({ guild, asInvite = false, ...props }: Props) => {
     <Button {...props} asChild>
       <Link href={routes.guilds.id(id)}>
         <Avatar className="mr-2 h-7 w-7">
-          <AvatarImage
-            src={`https://cdn.discordapp.com/icons/${id}/${icon}.png`}
-          />
+          {icon && (
+            <AvatarImage asChild src={getGuildIcon(id, icon, { size: 32 })}>
+              <Image
+                src={getGuildIcon(id, icon, { size: 32 })}
+                alt={`icon of ${name} guild`}
+                width={32}
+                height={32}
+              />
+            </AvatarImage>
+          )}
           <AvatarFallback>{name.at(0)}</AvatarFallback>
         </Avatar>
         {name}
