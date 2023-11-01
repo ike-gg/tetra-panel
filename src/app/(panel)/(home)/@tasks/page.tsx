@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { TaskCard } from "~/components/tasks/TaskCard";
 import { TypographyH2 } from "~/components/ui/typography";
 
@@ -24,12 +25,21 @@ export default async function PageTasksHomeParallel() {
     return taskExpireOn.getTime() > currentTime.getTime();
   });
 
-  if (taskStack.length === 0) return null;
-
   return (
     <div>
       <TypographyH2>Tasks</TypographyH2>
       <div className="flex flex-wrap gap-4">
+        {taskStack.length === 0 && (
+          <div className="flex h-24 max-w-[240px] flex-col items-center justify-center gap-0.5 rounded-lg border border-neutral-300 bg-neutral-100 bg-gradient-to-br p-4 px-8 text-center text-card-foreground shadow-lg">
+            <h3 className="flex items-center gap-2">
+              <InfoCircledIcon />
+              No tasks found
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              Manual adjusted emotes task will show up here.
+            </p>
+          </div>
+        )}
         {taskStack?.map((task) => (
           <TaskCard taskDetails={task} key={task.id} />
         ))}
