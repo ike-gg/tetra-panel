@@ -5,13 +5,15 @@ export default function HomeLayout(props: {
   tasks: ReactNode;
   guilds: ReactNode;
   savedemotes: ReactNode;
+  trendingemotes: ReactNode;
 }) {
   return (
-    <main className="space-y-6">
+    <main className="mb-96 space-y-6">
       {props.tasks}
       {props.guilds}
       {props.savedemotes}
       {props.children}
+      {props.trendingemotes}
     </main>
   );
 }
