@@ -45,26 +45,25 @@ export default async function GuildIdPage({
         </Avatar>
         Emotes of {name}
       </TypographyH2>
-      <Search />
+      {/* <Search /> */}
       <div className="grid grid-cols-7 gap-1 md:grid-cols-12 md:gap-3 lg:grid-cols-16">
-        {emotes
-          ?.filter((emote) => {
-            const emoteName = emote.name?.toLowerCase() ?? "";
-            const searchQuery = search?.toLowerCase() ?? "";
-            return emoteName.includes(searchQuery);
-          })
-          .map((emote) => (
-            <Emote
-              key={emote.id}
-              details={{
-                emoteName: emote.name ?? "Emote",
-                emoteUrl: emote.url,
-                origin: "DISCORD",
-                reference: emote.id,
-              }}
-              guildId={id}
-            />
-          ))}
+        {/* // .filter((emote) => {
+        //   const emoteName = emote.name?.toLowerCase() ?? "";
+        //   const searchQuery = search?.toLowerCase() ?? "";
+        //   return emoteName.includes(searchQuery);
+        // }) */}
+        {emotes?.map((emote) => (
+          <Emote
+            key={emote.id}
+            details={{
+              emoteName: emote.name ?? "Emote",
+              emoteUrl: emote.url,
+              origin: "DISCORD",
+              reference: emote.id,
+            }}
+            guildId={id}
+          />
+        ))}
       </div>
     </div>
   );
