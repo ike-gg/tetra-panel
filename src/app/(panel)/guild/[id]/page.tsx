@@ -3,9 +3,8 @@ import { type GuildEmoji } from "discord.js";
 import { endpoints } from "~/constants/apiroutes";
 import { Emote } from "~/components/emotes/Emote";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { firstLetters, getGuildBanner, getGuildIcon } from "~/lib/utils";
+import { firstLetters, getGuildIcon } from "~/lib/utils";
 import { TypographyH2 } from "~/components/ui/typography";
-import { Input } from "~/components/ui/input";
 import { Search } from "~/components/ui/search";
 
 export default async function GuildIdPage({
@@ -30,7 +29,7 @@ export default async function GuildIdPage({
     throw new Error(error);
   }
 
-  const { emotes, name, icon, banner } = (await request.json()) as {
+  const { emotes, name, icon } = (await request.json()) as {
     emotes: GuildEmoji[];
     name: string;
     icon: string | null;

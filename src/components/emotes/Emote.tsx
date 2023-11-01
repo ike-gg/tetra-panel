@@ -17,7 +17,6 @@ import { toast } from "sonner";
 import { endpoints } from "~/constants/apiroutes";
 import { useState } from "react";
 import Image from "next/image";
-import { GuildStickerManager } from "discord.js";
 
 type EmoteProp = Omit<Omit<Omit<Emotes, "expiresOn">, "accountId">, "id">;
 
