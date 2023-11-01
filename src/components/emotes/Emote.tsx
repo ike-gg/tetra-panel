@@ -92,7 +92,7 @@ export const Emote = ({ details, className, guildId }: Props) => {
 
   return (
     <ContextMenu>
-      <ContextMenuTrigger>
+      <ContextMenuTrigger asChild>
         <div className={cn("flex flex-col gap-1", className)}>
           <Image
             draggable={false}

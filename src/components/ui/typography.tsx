@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { cn } from "~/lib/utils";
 
 interface TypographyProps {
@@ -23,7 +23,7 @@ export function TypographyH2({ children, className }: TypographyProps) {
   return (
     <h2
       className={cn(
-        "foreground scroll-m-20 pb-2 text-2xl font-medium tracking-tight text-card-foreground transition-colors first:mt-0",
+        "bg-gradient-to-br from-neutral-900 to-neutral-100 bg-clip-text pb-2 text-2xl font-semibold tracking-tight text-transparent",
         className,
       )}
     >
