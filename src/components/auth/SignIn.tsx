@@ -61,10 +61,10 @@ export const SignIn = ({ provider }: Props) => {
         <AccordionItem value="item-3">
           <AccordionTrigger>What permissions do you require?</AccordionTrigger>
           <AccordionContent className="w-fit">
-            We need basic account information and access to your email address
-            for authentication purposes. Additionally, we require information
-            about the servers you&apos;re part of to understand which servers
-            you share with the Tetra bot and what permissions you hold on them.
+            We need basic account information for authentication purposes.
+            Additionally, we require information about the servers you&apos;re
+            part of to understand which servers you share with the Tetra bot and
+            what permissions you hold on them.
           </AccordionContent>
         </AccordionItem>
       </Accordion>
