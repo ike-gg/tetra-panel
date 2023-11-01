@@ -21,7 +21,7 @@ export default async function PanelLayout({
 
   return (
     <div className="min-h-screen">
-      <nav className="sticky top-0 border-b border-neutral-200 bg-white shadow-lg shadow-neutral-300/25">
+      <nav className="sticky top-0 z-40 border-b border-neutral-200 bg-white shadow-lg shadow-neutral-300/25">
         <div className="mx-auto flex max-w-screen-xl items-center gap-2 p-4">
           <Link href="/" className="items-top flex gap-2">
             <h2 className="font-heading text-3xl">Tetra</h2>
@@ -49,8 +49,17 @@ export default async function PanelLayout({
         {children}
       </div>
       <footer className="border-t-2">
-        <div className="mx-auto max-w-screen-xl px-4">
-          fooooooooter soooooon
+        <div className="mx-auto max-w-screen-xl px-4 py-8">
+          <div className="flex gap-2">
+            <h2 className="font-heading text-3xl">Tetra</h2>
+            <Badge className="h-fit w-fit">PANEL Beta</Badge>
+          </div>
+          <a
+            className="text-muted-foreground underline"
+            href="https://github.com/ike-gg/Tetra-panel"
+          >
+            Report a bug
+          </a>
         </div>
       </footer>
     </div>

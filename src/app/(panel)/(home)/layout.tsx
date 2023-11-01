@@ -8,7 +8,7 @@ export default function HomeLayout(props: {
   trendingemotes: ReactNode;
 }) {
   return (
-    <main className="mb-96 space-y-6">
+    <main className="space-y-6">
       {props.tasks}
       {props.guilds}
       {props.savedemotes}
