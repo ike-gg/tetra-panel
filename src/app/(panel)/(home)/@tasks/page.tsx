@@ -36,7 +36,7 @@ export default async function PageTasksHomeParallel() {
               No tasks found
             </h3>
             <p className="text-xs text-muted-foreground">
-              Manual adjusted emotes task will show up here.
+              Manual adjustment tasks will show up here.
             </p>
           </div>
         )}
