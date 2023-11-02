@@ -32,14 +32,10 @@ export const GuildButton = ({ guild, asInvite = false, ...props }: Props) => {
       >
         <Avatar className="mr-2 h-7 w-7">
           {icon && (
-            <AvatarImage asChild src={getGuildIcon(id, icon, { size: 32 })}>
-              <Image
-                src={getGuildIcon(id, icon, { size: 32 })}
-                alt={`icon of ${name} guild`}
-                width={32}
-                height={32}
-              />
-            </AvatarImage>
+            <AvatarImage
+              alt={`icon of ${name} guild`}
+              src={getGuildIcon(id, icon, { size: 32 })}
+            />
           )}
           <AvatarFallback>{name.at(0)}</AvatarFallback>
         </Avatar>

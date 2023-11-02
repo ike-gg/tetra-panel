@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { type Emotes } from "@prisma/client";
@@ -93,13 +94,11 @@ export const Emote = ({ details, className, guildId }: Props) => {
     <ContextMenu>
       <ContextMenuTrigger asChild>
         <div className={cn("flex flex-col gap-1", className)}>
-          <Image
+          <img
             draggable={false}
             className="aspect-square w-full select-none rounded-md border border-neutral-300 object-contain shadow-md"
             src={emoteUrl}
             alt={`emote ${emoteName}`}
-            width={96}
-            height={96}
           />
           <p className="truncate text-xs text-muted-foreground">{emoteName}</p>
         </div>
