@@ -17,7 +17,6 @@ import { cn, getGuildIcon } from "~/lib/utils";
 import { toast } from "sonner";
 import { endpoints } from "~/constants/apiroutes";
 import { useState } from "react";
-import Image from "next/image";
 
 type EmoteProp = Omit<Omit<Omit<Emotes, "expiresOn">, "accountId">, "id">;
 
@@ -125,12 +124,10 @@ export const Emote = ({ details, className, guildId }: Props) => {
                 >
                   {guild.name}
                   {guild.icon && (
-                    <Image
+                    <img
                       src={getGuildIcon(guild.id, guild.icon, { size: 16 })}
                       alt="guild icon for"
                       className="ml-3 h-5 w-5 rounded-full"
-                      width={16}
-                      height={16}
                     />
                   )}
                 </ContextMenuItem>

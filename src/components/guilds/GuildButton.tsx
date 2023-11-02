@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { type PartialGuild } from "discord-oauth2";
@@ -7,7 +8,6 @@ import Link from "next/link";
 import { routes } from "~/constants/routes";
 import { toast } from "sonner";
 import { getGuildIcon } from "~/lib/utils";
-import Image from "next/image";
 
 interface Props extends ButtonProps {
   guild: PartialGuild;
@@ -50,11 +50,9 @@ export const GuildButton = ({ guild, asInvite = false, ...props }: Props) => {
         <Avatar className="mr-2 h-7 w-7">
           {icon && (
             <AvatarImage asChild src={getGuildIcon(id, icon, { size: 32 })}>
-              <Image
+              <img
                 src={getGuildIcon(id, icon, { size: 32 })}
                 alt={`icon of ${name} guild`}
-                width={32}
-                height={32}
               />
             </AvatarImage>
           )}
