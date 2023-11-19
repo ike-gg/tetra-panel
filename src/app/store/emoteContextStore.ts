@@ -3,7 +3,7 @@ import { type PartialGuild } from "discord-oauth2";
 import { create } from "zustand";
 import { endpoints } from "~/constants/apiroutes";
 
-interface ContextGuilds {
+export interface ContextGuild {
   name: string;
   id: string;
   icon?: string | null;
@@ -11,7 +11,7 @@ interface ContextGuilds {
 
 interface EmoteContextState {
   fetch: () => Promise<void>;
-  guilds: ContextGuilds[] | null;
+  guilds: ContextGuild[] | null;
 }
 
 export const useEmoteContextStore = create<EmoteContextState>()((set) => ({
