@@ -1,9 +1,9 @@
 import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
-// import { headers } from "next/headers";
+import { headers } from "next/headers";
 
-// import { TRPCReactProvider } from "~/trpc/react";
+import { TRPCReactProvider } from "~/trpc/react";
 import { Toaster } from "sonner";
 
 const inter = Inter({
@@ -39,14 +39,15 @@ export default function RootLayout({
         />
       </head>
       <body className={`font-sans ${inter.variable} bg-neutral-50`}>
-        {/* <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider> */}
-        {children}
-        <Toaster
-          duration={30 * 1000}
-          richColors
-          visibleToasts={5}
-          closeButton
-        />
+        <TRPCReactProvider headers={headers()}>
+          {children}
+          <Toaster
+            duration={30 * 1000}
+            richColors
+            visibleToasts={5}
+            closeButton
+          />
+        </TRPCReactProvider>
       </body>
     </html>
   );
