@@ -2,6 +2,7 @@
 import { type PartialGuild } from "discord-oauth2";
 import { create } from "zustand";
 import { endpoints } from "~/constants/apiroutes";
+import wretch from "wretch";
 
 export interface ContextGuild {
   name: string;
@@ -17,14 +18,15 @@ interface EmoteContextState {
 export const useEmoteContextStore = create<EmoteContextState>()((set) => ({
   fetch: async () => {
     try {
-      const request = await fetch(endpoints.getUserGuilds, {
-        credentials: "include",
-      });
-      const response = (await request.json()) as {
-        managingGuilds: PartialGuild[];
-      };
+      const guilds: { managingGuilds: PartialGuild[] } = await wretch(
+        endpoints.getUserGuilds,
+      )
+        .options({ credentials: "include" })
+        .get()
+        .json();
+
       set({
-        guilds: response.managingGuilds.map((guild) => ({
+        guilds: guilds.managingGuilds.map((guild) => ({
           icon: guild.icon,
           id: guild.id,
           name: guild.name,
@@ -32,6 +34,7 @@ export const useEmoteContextStore = create<EmoteContextState>()((set) => ({
       });
     } catch (error) {
       set({ guilds: [] });
+      throw new Error("Error while fetching guilds");
     }
   },
   guilds: null,
