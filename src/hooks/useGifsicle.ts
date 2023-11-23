@@ -49,6 +49,8 @@ export const useGifsicle = ({ buffer, options }: UseGifsicleProps) => {
 
       let file: File | ArrayBuffer = base64ToArrayBuffer(buffer);
 
+      // file = await runGifsicle(file, "");
+
       if (crop) {
         const { x1, x2, y1, y2 } = crop;
         width = x2 - x1;
