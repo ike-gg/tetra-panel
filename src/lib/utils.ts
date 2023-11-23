@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { WretchError } from "wretch/resolver";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -10,6 +11,16 @@ export function firstLetters(input: string) {
     .split(" ")
     .map((w) => w.at(0))
     .join("");
+}
+
+export function parseTetraApiError(error: WretchError) {
+  if (typeof error.json === "object") {
+    const errorObject = error.json as Record<string, string>;
+    if ("error" in errorObject) {
+      return errorObject.error;
+    }
+  }
+  return error.message ?? "Unknown error";
 }
 
 interface GetIconOptions {
@@ -37,17 +48,16 @@ export function getGuildBanner(
 }
 
 export function arrayBufferToBase64(arrayBuffer: ArrayBuffer): string {
-  const uint8Array = new Uint8Array(arrayBuffer);
-  let binaryString = "";
-  for (const byte of uint8Array) {
-    binaryString += String.fromCharCode(byte);
+  const baseBase64 = Buffer.from(arrayBuffer).toString("base64");
+  if (baseBase64.startsWith("data:")) {
+    return baseBase64;
   }
-  const base64String = btoa(binaryString);
-  return base64String;
+  return `data:image;base64,${baseBase64}`;
 }
 
 export function base64ToArrayBuffer(base64: string) {
-  const binaryString = atob(base64);
+  const base64WithoutHeader = base64.replace(/^data:[^;]+;base64,/, "");
+  const binaryString = atob(base64WithoutHeader);
   const bytes = new Uint8Array(binaryString.length);
   for (let i = 0; i < binaryString.length; i++) {
     bytes[i] = binaryString.charCodeAt(i);

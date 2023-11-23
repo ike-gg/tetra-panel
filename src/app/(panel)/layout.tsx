@@ -27,7 +27,6 @@ export default async function PanelLayout({
             <h2 className="font-heading text-3xl">Tetra</h2>
             <Badge className="h-fit w-fit">PANEL</Badge>
           </Link>
-          {context}
           <Link
             href="/user"
             className={buttonVariants({
@@ -60,6 +59,7 @@ export default async function PanelLayout({
           >
             Report a bug
           </a>
+          {context}
         </div>
       </footer>
     </div>

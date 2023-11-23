@@ -62,7 +62,6 @@ export const authOptions: NextAuthOptions = {
         sameSite: "lax",
         path: "/",
         secure: false,
-        domain: "tetra.lol",
       },
     },
   },

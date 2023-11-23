@@ -11,12 +11,12 @@ interface Props {
 export const EmotePreview = ({ base64, size, isProcessing }: Props) => {
   const prettySize = prettyBytes(size);
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex aspect-square flex-col items-center gap-2">
       <img
         alt="emote preview"
         src={base64}
         className={cn(
-          "h-40 w-40 rounded-md border border-neutral-300 object-contain shadow-xl transition-all duration-500",
+          "h-full w-full rounded-md border border-neutral-300 object-contain shadow-xl transition-all duration-500 md:h-40 md:w-40",
           isProcessing && "scale-75 opacity-50",
         )}
       />

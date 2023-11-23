@@ -53,19 +53,12 @@ export function Adjustment({ details, emoteBase64, metadata }: Props) {
 
   return (
     <div className="mx-auto max-w-lg space-y-4">
-      <div className="bg-radar flex w-full flex-col items-center gap-4 rounded-lg border border-neutral-200 from-neutral-100 to-neutral-50 p-12 py-8">
+      <div className="flex w-full flex-col items-center gap-4 rounded-lg border border-neutral-200 bg-radar from-neutral-100 to-neutral-50 p-12 py-8">
         <div className="flex w-full items-center justify-between gap-6">
-          <EmotePreview
-            base64={`data:image;base64,${emoteBase64}`}
-            size={metadata.size ?? 0}
-          />
+          <EmotePreview base64={emoteBase64} size={metadata.size ?? 0} />
           <ArrowRightIcon />
           <EmotePreview
-            base64={
-              processed.startsWith("data")
-                ? processed
-                : `data:image;base64,${processed}`
-            }
+            base64={processed}
             size={processedSize ?? 0}
             isProcessing={processing}
           />
