@@ -80,7 +80,7 @@ export const SubmitEmote = ({ isCorrectSize, modifiedBase64, task }: Props) => {
           guildId: formData.guildId,
         })
         .json();
-      toast.success("Emote added!", { description: response.message });
+      toast.success(response.message);
       router.replace(routes.panel + `?f=${task.id}`);
     } catch (error) {
       if (error instanceof WretchError) {
