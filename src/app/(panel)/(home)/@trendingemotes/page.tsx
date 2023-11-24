@@ -1,6 +1,6 @@
 import { Emote } from "~/components/emotes/Emote";
 import { TypographyH2 } from "~/components/ui/typography";
-import { stvEmoteSourceParser } from "~/lib/emoteProviders";
+import { stvEmoteSourceParser } from "~/lib/emotes/emoteProviders";
 import { type STVResponseGQL } from "~/types/7tv";
 
 export default async function PageTrendingEmotesHomeParallel() {
@@ -50,7 +50,6 @@ export default async function PageTrendingEmotesHomeParallel() {
 
           return (
             <Emote
-              className="w-20"
               key={id}
               details={{
                 emoteName: name,

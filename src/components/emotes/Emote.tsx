@@ -20,6 +20,8 @@ import { useState } from "react";
 
 type EmoteProp = Omit<Omit<Omit<Emotes, "expiresOn">, "accountId">, "id">;
 
+export type EmoteInterface = EmoteProp;
+
 interface Props {
   details: EmoteProp;
   className?: string;
@@ -92,10 +94,15 @@ export const Emote = ({ details, className, guildId }: Props) => {
   return (
     <ContextMenu>
       <ContextMenuTrigger asChild>
-        <div className={cn("flex flex-col gap-1", className)}>
+        <div
+          className={cn(
+            "flex w-20 cursor-pointer flex-col gap-1 transition-all hover:scale-105",
+            className,
+          )}
+        >
           <img
             draggable={false}
-            className="aspect-square w-full select-none rounded-md border border-neutral-300 object-contain shadow-md"
+            className="aspect-square h-20 w-20 select-none rounded-md border border-neutral-300 object-contain shadow"
             src={emoteUrl}
             alt={`emote ${emoteName}`}
           />
