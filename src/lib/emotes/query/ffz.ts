@@ -80,5 +80,7 @@ export async function queryFFZ(query: string, page?: number) {
     );
 
     return emotes;
-  } catch (error) {}
+  } catch (error) {
+    return [];
+  }
 }
