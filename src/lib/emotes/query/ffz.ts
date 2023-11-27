@@ -1,6 +1,6 @@
 import wretch from "wretch";
 import { type EmoteInterface } from "~/components/emotes/Emote";
-import { QueryOptions } from ".";
+import { type QueryOptions } from ".";
 
 export interface FFZEmote {
   id: number;
@@ -41,29 +41,24 @@ export async function queryFFZ(query: string, options: QueryOptions) {
 
     const emotes: EmoteInterface[] = response.emoticons.map(
       (emote): EmoteInterface => {
-        const { id, name, owner, urls, animated } = emote;
+        const { id, name, urls, animated } = emote;
 
         const isAnimated = animated ? true : false;
 
-        let urlPreview: string | undefined;
         let urlSource: string | undefined;
 
         if (animated) {
           if (animated[2]) {
-            urlPreview = `${animated[2]}.gif`;
             urlSource = `${animated[2]}.gif`;
           } else if (animated[1]) {
-            urlPreview = `${animated[1]}.gif`;
             urlSource = `${animated[1]}.gif`;
           }
         }
 
         if (!animated) {
           if (urls[2]) {
-            urlPreview = urls[2];
             urlSource = urls[2];
           } else if (urls[1]) {
-            urlPreview = urls[1];
             urlSource = urls[1];
           }
         }

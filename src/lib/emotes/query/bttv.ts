@@ -1,7 +1,7 @@
 import wretch from "wretch";
 import { type EmoteInterface } from "~/components/emotes/Emote";
 import { bttvTransformSourceUrl } from "../emoteProviders";
-import { QueryOptions } from ".";
+import { type QueryOptions } from ".";
 
 export interface BTTVEmote {
   id: string;

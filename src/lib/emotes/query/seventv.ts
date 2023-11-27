@@ -1,7 +1,7 @@
 import wretch from "wretch";
 import { type EmoteInterface } from "~/components/emotes/Emote";
 import { stvEmoteSourceParser } from "../emoteProviders";
-import { QueryOptions } from ".";
+import { type QueryOptions } from ".";
 
 export interface STVEmoteFile {
   name: "1x" | "2x" | "3x" | "4x";
