@@ -1,6 +1,7 @@
 import wretch from "wretch";
 import { type EmoteInterface } from "~/components/emotes/Emote";
 import { bttvTransformSourceUrl } from "../emoteProviders";
+import { QueryOptions } from ".";
 
 export interface BTTVEmote {
   id: string;
@@ -19,12 +20,12 @@ export type BTTVResponseById = BTTVEmote;
 
 export type BTTVResponseByQuery = BTTVEmote[] | BTTVTopEmote[];
 
-export async function queryBTTV(query: string, page?: number) {
+export async function queryBTTV(query: string, options: QueryOptions) {
+  const { offset = 0, limit = 20 } = options;
   try {
-    const offset = page ? Math.floor(page) * 20 : 0;
     const requestUrl = query
-      ? `https://api.betterttv.net/3/emotes/shared/search?query=${query}&offset=${offset}&limit=20`
-      : `https://api.betterttv.net/3/emotes/shared/top?offset=${offset}&limit=20`;
+      ? `https://api.betterttv.net/3/emotes/shared/search?query=${query}&offset=${offset}&limit=${limit}`
+      : `https://api.betterttv.net/3/emotes/shared/top?limit=${limit}`;
     const results: BTTVResponseByQuery = await wretch(requestUrl).get().json();
 
     const emotes: EmoteInterface[] = results.map((emote) => {
@@ -50,6 +51,7 @@ export async function queryBTTV(query: string, page?: number) {
 
     return emotes;
   } catch (error) {
+    console.log(error);
     return [];
   }
 }

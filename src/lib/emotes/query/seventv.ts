@@ -1,6 +1,7 @@
 import wretch from "wretch";
 import { type EmoteInterface } from "~/components/emotes/Emote";
 import { stvEmoteSourceParser } from "../emoteProviders";
+import { QueryOptions } from ".";
 
 export interface STVEmoteFile {
   name: "1x" | "2x" | "3x" | "4x";
@@ -36,13 +37,13 @@ export interface STVResponseGQL {
   }[];
 }
 
-export async function querySevenTV(query = "", page?: number) {
+export async function querySevenTV(query = "", options: QueryOptions) {
+  const { limit = 20, page = 1 } = options;
   try {
-    console.log(page);
     const results: STVResponseGQL = await wretch("https://7tv.io/v3/gql")
       .post({
         query: `{
-      emotes(query: "${query}", limit: 20, page: ${page ?? 1}) {
+      emotes(query: "${query}", limit: ${limit}, page: ${page}) {
         count
         items {
           id
