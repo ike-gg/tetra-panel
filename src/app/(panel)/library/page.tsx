@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
@@ -24,6 +25,11 @@ export default function EmoteLibraryPage() {
     const newProvider = provider === "all" ? undefined : provider;
     router.replace(routes.library(query, page, newProvider));
   }, [query, router, provider, page]);
+
+  //if query or provider changes, reset page to 1
+  useEffect(() => {
+    setPage(1);
+  }, [query, provider]);
 
   return (
     <div className="flex gap-2">

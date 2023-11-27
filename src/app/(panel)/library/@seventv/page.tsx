@@ -14,10 +14,17 @@ interface PageProps {
 export default async function EmoteLibrarySeventvPage({
   searchParams: { query, page, provider },
 }: PageProps) {
-  if (provider !== "7tv" && provider) return null;
+  const isActiveProvider = provider === "7tv";
+  if (!isActiveProvider && provider) return null;
+
+  const emotesPerPage = isActiveProvider ? 60 : 20;
+  const currentPage = Math.floor(Number(page));
 
   try {
-    const emotes = await querySevenTV(query, page ? Number(page) : undefined);
+    const emotes = await querySevenTV(query, {
+      limit: emotesPerPage,
+      page: currentPage,
+    });
 
     return (
       <div>

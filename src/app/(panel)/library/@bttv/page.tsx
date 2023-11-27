@@ -1,7 +1,7 @@
 import { Emote } from "~/components/emotes/Emote";
 import * as Alert from "~/components/ui/alert";
 import { TypographyH2 } from "~/components/ui/typography";
-import { queryBTTV } from "~/lib/emotes/query/bttv";
+import { queryBTTV } from "~/lib/emotes/query";
 
 interface PageProps {
   searchParams: {
@@ -14,10 +14,17 @@ interface PageProps {
 export default async function EmoteLibrarySeventvPage({
   searchParams: { query, page, provider },
 }: PageProps) {
-  if (provider !== "bttv" && provider) return null;
+  const isActiveProvider = provider === "bttv";
+  if (!isActiveProvider && provider) return null;
+
+  const emotesPerPage = isActiveProvider ? 60 : 20;
+  const currentOffset = Number(page) * emotesPerPage;
 
   try {
-    const emotes = await queryBTTV(query, page ? Number(page) : undefined);
+    const emotes = await queryBTTV(query, {
+      offset: currentOffset,
+      limit: emotesPerPage,
+    });
 
     return (
       <div>
@@ -40,7 +47,7 @@ export default async function EmoteLibrarySeventvPage({
   } catch (e) {
     return (
       <Alert.Alert variant={"destructive"}>
-        <Alert.AlertTitle>Failed fetching BTTV emotes.</Alert.AlertTitle>
+        <Alert.AlertTitle>Failed fetching FFZ emotes.</Alert.AlertTitle>
         <Alert.AlertDescription>
           {e instanceof Error ? e.message : String(e)}
         </Alert.AlertDescription>
