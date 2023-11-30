@@ -21,14 +21,13 @@ import { EmotePreview } from "./EmotePreview";
 import { SubmitEmote } from "./SubmitEmote";
 import { Separator } from "../ui/separator";
 import { AdjustmentProgress } from "./AdjustmentProgress";
+import { MAX_EMOTE_SIZE } from "~/constants";
 
 interface Props {
   details: ManualAdjustment;
   emoteBase64: string;
   metadata: Metadata;
 }
-
-const MAX_EMOTE_SIZE = 262144;
 
 export function Adjustment({ details, emoteBase64, metadata }: Props) {
   const { colors, crop, cut, frameRate, lossy, scale, fitting, reset } =

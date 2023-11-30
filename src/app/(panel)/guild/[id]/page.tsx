@@ -38,15 +38,15 @@ export default async function GuildIdPage({
 
   return (
     <div className="space-y-5">
-      <TypographyH2 className="flex items-center gap-2">
-        <Avatar className="h-16 w-16">
+      <TypographyH2 className="flex items-center gap-4">
+        <Avatar className="h-12 w-12">
           {icon && <AvatarImage src={getGuildIcon(id, icon)} />}
           <AvatarFallback>{firstLetters(name)}</AvatarFallback>
         </Avatar>
-        Emotes of {name}
+        {name} emotes
       </TypographyH2>
       {/* <Search /> */}
-      <div className="grid grid-cols-7 gap-1 md:grid-cols-12 md:gap-3 lg:grid-cols-16">
+      <div className="flex flex-wrap gap-3">
         {/* // .filter((emote) => {
         //   const emoteName = emote.name?.toLowerCase() ?? "";
         //   const searchQuery = search?.toLowerCase() ?? "";

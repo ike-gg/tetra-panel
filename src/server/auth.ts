@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
         sameSite: "lax",
         path: "/",
         secure: false,
-        domain: "tetra.lol",
+        domain: env.NODE_ENV === "production" ? "tetra.lol" : "localhost",
       },
     },
   },

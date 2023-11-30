@@ -7,6 +7,7 @@ import { buttonVariants } from "~/components/ui/button";
 import { routes } from "~/constants/routes";
 import { firstLetters } from "~/lib/utils";
 import { getServerAuthSession } from "~/server/auth";
+import { Nav } from "~/components/layout/Nav";
 
 export default async function PanelLayout({
   children,
@@ -27,6 +28,7 @@ export default async function PanelLayout({
             <h2 className="font-heading text-3xl">Tetra</h2>
             <Badge className="h-fit w-fit">PANEL</Badge>
           </Link>
+          <Nav />
           <Link
             href="/user"
             className={buttonVariants({

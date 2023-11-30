@@ -12,13 +12,19 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "../ui/context-menu";
+import * as Dialog from "../ui/dialog";
 import { useEmoteContextStore } from "~/app/store/emoteContextStore";
 import { cn, getGuildIcon } from "~/lib/utils";
 import { toast } from "sonner";
 import { endpoints } from "~/constants/apiroutes";
 import { useState } from "react";
+import { api } from "~/trpc/react";
+import prettyBytes from "pretty-bytes";
+import { MAX_EMOTE_SIZE } from "~/constants";
 
 type EmoteProp = Omit<Omit<Omit<Emotes, "expiresOn">, "accountId">, "id">;
+
+export type EmoteInterface = EmoteProp & { internalId?: string };
 
 interface Props {
   details: EmoteProp;
@@ -28,6 +34,14 @@ interface Props {
 
 export const Emote = ({ details, className, guildId }: Props) => {
   const { emoteName, emoteUrl, origin, reference } = details;
+
+  const {
+    data: imageSize,
+    refetch,
+    isLoading,
+  } = api.buffer.getSize.useQuery(emoteUrl, {
+    enabled: false,
+  });
 
   const [isDeleted, setIsDeleted] = useState(false);
   const { guilds } = useEmoteContextStore((state) => state);
@@ -90,18 +104,39 @@ export const Emote = ({ details, className, guildId }: Props) => {
   if (isDeleted) return null;
 
   return (
-    <ContextMenu>
-      <ContextMenuTrigger asChild>
-        <div className={cn("flex flex-col gap-1", className)}>
-          <img
-            draggable={false}
-            className="aspect-square w-full select-none rounded-md border border-neutral-300 object-contain shadow-md"
-            src={emoteUrl}
-            alt={`emote ${emoteName}`}
-          />
-          <p className="truncate text-xs text-muted-foreground">{emoteName}</p>
-        </div>
-      </ContextMenuTrigger>
+    <ContextMenu onOpenChange={(e) => e && refetch()}>
+      <Dialog.Dialog onOpenChange={(e) => e && refetch()}>
+        <ContextMenuTrigger asChild>
+          <Dialog.DialogTrigger asChild>
+            <div
+              className={cn(
+                "flex w-20 cursor-pointer flex-col gap-1 transition-all hover:scale-105",
+                className,
+              )}
+              tabIndex={1}
+            >
+              <img
+                draggable={false}
+                className="aspect-square h-20 w-20 select-none rounded-md border border-neutral-300 object-contain shadow"
+                src={emoteUrl}
+                alt={`emote ${emoteName}`}
+              />
+              <p className="truncate text-xs text-muted-foreground">
+                {emoteName}
+              </p>
+            </div>
+          </Dialog.DialogTrigger>
+        </ContextMenuTrigger>
+        <Dialog.DialogContent>
+          <Dialog.DialogHeader>{emoteName}</Dialog.DialogHeader>
+          {guilds?.map((guild) => guild.name).join(", ")}
+          {isLoading && (
+            <div className="mr-3 h-16 w-16 animate-spin rounded-full border-[2px] border-neutral-800 border-t-transparent " />
+          )}
+          <code>{imageSize && prettyBytes(imageSize)}</code>
+          <img alt="stfu" src={emoteUrl} />
+        </Dialog.DialogContent>
+      </Dialog.Dialog>
       <ContextMenuContent>
         {guilds && (
           <ContextMenuSub>
