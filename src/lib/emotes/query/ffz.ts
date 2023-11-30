@@ -1,6 +1,6 @@
 import wretch from "wretch";
 import { type EmoteInterface } from "~/components/emotes/Emote";
-import { type QueryOptions } from ".";
+import { type QueryEmoteFn, type QueryEmoteOptions } from ".";
 
 export interface FFZEmote {
   id: number;
@@ -30,7 +30,10 @@ export interface FFZResponseByQuery {
   emoticons: FFZEmote[];
 }
 
-export async function queryFFZ(query: string, options: QueryOptions) {
+export const queryFFZ: QueryEmoteFn = async (
+  query: string,
+  options: QueryEmoteOptions = {},
+) => {
   const { limit = 20, page = 1 } = options;
   try {
     const response: FFZResponseByQuery = await wretch(
@@ -80,4 +83,4 @@ export async function queryFFZ(query: string, options: QueryOptions) {
   } catch (error) {
     return [];
   }
-}
+};

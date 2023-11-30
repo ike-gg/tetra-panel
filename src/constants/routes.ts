@@ -10,11 +10,10 @@ const guilds = {
   id: (id: string) => `/guild/${id}`,
 } as const;
 
-const library = (query?: string, page?: number, provider?: string) => {
+const library = (query?: string, provider?: string) => {
   const searchParams: string[] = [];
 
   query && searchParams.push(`query=${query}`);
-  page && searchParams.push(`page=${page}`);
   provider && searchParams.push(`provider=${provider}`);
 
   return `/library${searchParams.length ? `?${searchParams.join("&")}` : ""}`;

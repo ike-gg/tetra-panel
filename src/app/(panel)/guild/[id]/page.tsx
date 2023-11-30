@@ -46,7 +46,7 @@ export default async function GuildIdPage({
         Emotes of {name}
       </TypographyH2>
       {/* <Search /> */}
-      <div className="flex flex-wrap justify-between gap-3">
+      <div className="flex flex-wrap gap-3">
         {/* // .filter((emote) => {
         //   const emoteName = emote.name?.toLowerCase() ?? "";
         //   const searchQuery = search?.toLowerCase() ?? "";

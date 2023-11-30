@@ -24,7 +24,7 @@ import { MAX_EMOTE_SIZE } from "~/constants";
 
 type EmoteProp = Omit<Omit<Omit<Emotes, "expiresOn">, "accountId">, "id">;
 
-export type EmoteInterface = EmoteProp;
+export type EmoteInterface = EmoteProp & { internalId?: string };
 
 interface Props {
   details: EmoteProp;
@@ -104,7 +104,7 @@ export const Emote = ({ details, className, guildId }: Props) => {
   if (isDeleted) return null;
 
   return (
-    <ContextMenu>
+    <ContextMenu onOpenChange={(e) => e && refetch()}>
       <Dialog.Dialog onOpenChange={(e) => e && refetch()}>
         <ContextMenuTrigger asChild>
           <Dialog.DialogTrigger asChild>
@@ -134,13 +134,7 @@ export const Emote = ({ details, className, guildId }: Props) => {
             <div className="mr-3 h-16 w-16 animate-spin rounded-full border-[2px] border-neutral-800 border-t-transparent " />
           )}
           <code>{imageSize && prettyBytes(imageSize)}</code>
-          <img
-            alt="stfu"
-            onLoad={(e) => {
-              console.log("loaded intern image.");
-            }}
-            src={emoteUrl}
-          />
+          <img alt="stfu" src={emoteUrl} />
         </Dialog.DialogContent>
       </Dialog.Dialog>
       <ContextMenuContent>
