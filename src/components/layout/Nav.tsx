@@ -1,7 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { UserContextMenuCommandInteraction } from "discord.js";
-import { Fragment } from "react";
 import { useEmoteContextStore } from "~/app/store/emoteContextStore";
 import {
   NavigationMenu,
@@ -11,35 +10,16 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
+import { getGuildIcon } from "~/lib/utils";
 
 const ALL_LINKS = [
   {
     name: "Emote library",
     links: [
       {
-        name: "Search 7TV emotes",
+        name: "Search emotes",
         href: "/library",
-        description: "Search through 7TV emotes library.",
-      },
-      {
-        name: "Search channel emotes",
-        href: "/library",
-        description: "Search through twitch channel emotes.",
-      },
-      {
-        name: "Search twitch emotes",
-        href: "/library",
-        description: "Search through twitch emotes.",
-      },
-    ],
-  },
-  {
-    name: "Test",
-    links: [
-      {
-        name: "Search 7TV emotes",
-        href: "/library",
-        description: "Search through 7TV emotes library.",
+        description: "7TV, BTTV, FFZ.",
       },
     ],
   },
@@ -80,13 +60,19 @@ export const Nav = () => {
                   {guilds?.map((guild) => (
                     <li key={guild.id}>
                       <NavigationMenuLink
-                        className="block p-2 hover:bg-muted"
+                        className="flex items-center gap-2 p-2 hover:bg-muted"
                         href={`/guild/${guild.id}`}
                       >
+                        {guild.icon && (
+                          <img
+                            alt={guild.name + " guild icon"}
+                            className="rounded-full"
+                            src={getGuildIcon(guild.id, guild.icon, {
+                              size: 32,
+                            })}
+                          />
+                        )}
                         <h3>{guild.name}</h3>
-                        <p className="text-xs text-muted-foreground">
-                          {guild.id}
-                        </p>
                       </NavigationMenuLink>
                     </li>
                   ))}
@@ -96,7 +82,7 @@ export const Nav = () => {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-      <div className="md:hidden">witam.</div>
+      <div className="md:hidden">mobile nav soon</div>
     </>
   );
 };

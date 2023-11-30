@@ -38,12 +38,12 @@ export default async function GuildIdPage({
 
   return (
     <div className="space-y-5">
-      <TypographyH2 className="flex items-center gap-2">
-        <Avatar className="h-16 w-16">
+      <TypographyH2 className="flex items-center gap-4">
+        <Avatar className="h-12 w-12">
           {icon && <AvatarImage src={getGuildIcon(id, icon)} />}
           <AvatarFallback>{firstLetters(name)}</AvatarFallback>
         </Avatar>
-        Emotes of {name}
+        {name} emotes
       </TypographyH2>
       {/* <Search /> */}
       <div className="flex flex-wrap gap-3">
