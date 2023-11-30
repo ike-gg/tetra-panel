@@ -5,16 +5,21 @@ import { headers } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Toaster } from "sonner";
+import { type Metadata } from "next";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Tetra Panel",
-  description: "✨",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  twitter: {
+    card: "summary_large_image",
+  },
+  themeColor: "#000000",
+  authors: [{ name: "ike", url: "https://github.com/ike-gg" }],
 };
 
 export default function RootLayout({
