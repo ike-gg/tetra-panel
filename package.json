@@ -37,6 +37,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "discord-oauth2": "^2.11.0",
+    "framer-motion": "^10.16.14",
     "gifsicle-wasm-browser": "^1.5.16",
     "lucide-react": "^0.288.0",
     "next": "^13.5.4",
