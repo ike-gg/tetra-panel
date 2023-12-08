@@ -76,6 +76,7 @@ export const querySevenTV: QueryEmoteFn = async (
         emoteUrl: emoteUrl!,
         origin: "SEVENTV",
         reference: id,
+        animated,
       };
     });
 

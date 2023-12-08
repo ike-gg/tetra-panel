@@ -52,6 +52,7 @@ export default async function PageTrendingEmotesHomeParallel() {
             <Emote
               key={id}
               details={{
+                animated,
                 emoteName: name,
                 emoteUrl: emoteUrl,
                 origin: "SEVENTV",
