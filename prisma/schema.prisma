@@ -30,6 +30,7 @@ model Emotes {
     emoteUrl String
     reference String
     expiresOn DateTime
+    animated Boolean
     origin EmoteOrigin
     accountId String
     account Account? @relation(fields: [accountId], references: [providerAccountId])
