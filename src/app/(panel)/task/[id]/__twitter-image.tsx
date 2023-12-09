@@ -13,7 +13,6 @@ export const size = {
 import { Inter } from "next/font/google";
 import { api } from "~/trpc/server";
 import { getGuildIcon } from "~/lib/utils";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
 const inter = Inter({ subsets: ["latin"] });
 
 export const contentType = "image/png";
@@ -27,7 +26,7 @@ export default async function Image({
 
   if (!task) return null;
 
-  const { emoteUrl, guildIcon, guildId, emoteName } = task;
+  const { emoteUrl, guildIcon, guildId } = task;
 
   return new ImageResponse(
     (
@@ -84,7 +83,7 @@ export default async function Image({
               clip-rule="evenodd"
             />
           </svg>
-          {guildIcon && (
+          {guildIcon && guildId && (
             <img
               src={getGuildIcon(guildId, guildIcon, { size: 256 })}
               width={200}
