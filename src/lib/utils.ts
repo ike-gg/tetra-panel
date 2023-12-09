@@ -13,8 +13,8 @@ export function firstLetters(input: string) {
     .join("");
 }
 
-export function parseTetraApiError(error: WretchError) {
-  if (typeof error.json === "object") {
+export function parseTetraApiError(error: WretchError | Error) {
+  if (error instanceof WretchError && typeof error.json === "object") {
     const errorObject = error.json as Record<string, string>;
     if ("error" in errorObject) {
       return errorObject.error;
