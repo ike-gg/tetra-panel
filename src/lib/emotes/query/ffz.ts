@@ -75,6 +75,7 @@ export const queryFFZ: QueryEmoteFn = async (
           emoteUrl: urlSource!,
           origin: "FFZ",
           reference: String(id),
+          animated: isAnimated,
         };
       },
     );

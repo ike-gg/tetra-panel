@@ -1,18 +1,17 @@
 import { cookies } from "next/headers";
 import { type GuildEmoji } from "discord.js";
 import { endpoints } from "~/constants/apiroutes";
-import { Emote } from "~/components/emotes/Emote";
+import { type EmoteInterface } from "~/components/emotes/Emote";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { firstLetters, getGuildIcon } from "~/lib/utils";
 import { TypographyH2 } from "~/components/ui/typography";
-import { Search } from "~/components/ui/search";
+import { EmotesGuild } from "~/components/emotes/EmotesGuild";
+import { forwardRef } from "react";
 
 export default async function GuildIdPage({
   params,
-  searchParams: { search },
 }: {
   params: { id: string };
-  searchParams: { search: string };
 }) {
   const { id } = params;
 
@@ -36,6 +35,17 @@ export default async function GuildIdPage({
     banner: string | null;
   };
 
+  const emotesI: EmoteInterface[] = emotes.map((emote): EmoteInterface => {
+    const { name, url, id, animated } = emote;
+    return {
+      animated: animated ?? url.endsWith(".gif"),
+      emoteName: name!,
+      emoteUrl: url,
+      origin: "DISCORD",
+      reference: id,
+    };
+  });
+
   return (
     <div className="space-y-5">
       <TypographyH2 className="flex items-center gap-4">
@@ -45,26 +55,7 @@ export default async function GuildIdPage({
         </Avatar>
         {name} emotes
       </TypographyH2>
-      {/* <Search /> */}
-      <div className="flex flex-wrap gap-3">
-        {/* // .filter((emote) => {
-        //   const emoteName = emote.name?.toLowerCase() ?? "";
-        //   const searchQuery = search?.toLowerCase() ?? "";
-        //   return emoteName.includes(searchQuery);
-        // }) */}
-        {emotes?.map((emote) => (
-          <Emote
-            key={emote.id}
-            details={{
-              emoteName: emote.name ?? "Emote",
-              emoteUrl: emote.url,
-              origin: "DISCORD",
-              reference: emote.id,
-            }}
-            guildId={id}
-          />
-        ))}
-      </div>
+      <EmotesGuild list={emotesI} guildId={id} />
     </div>
   );
 }

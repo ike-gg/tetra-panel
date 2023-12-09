@@ -43,6 +43,7 @@ export const queryBTTV: QueryEmoteFn = async (
           origin: "BTTV",
           reference: id,
           internalId,
+          animated,
         };
       }
       const { code, id, animated } = emote;
@@ -52,6 +53,7 @@ export const queryBTTV: QueryEmoteFn = async (
         emoteUrl: emoteUrl["3x"]!,
         origin: "BTTV",
         reference: id,
+        animated,
       };
     });
 

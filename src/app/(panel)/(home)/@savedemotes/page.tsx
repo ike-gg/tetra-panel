@@ -39,9 +39,7 @@ export default async function PageSavedemotesHomeParallel() {
             </p>
           </div>
         )}
-        {savedEmotes?.map((emote) => (
-          <Emote className="w-28" details={emote} key={emote.id} />
-        ))}
+        {savedEmotes?.map((emote) => <Emote details={emote} key={emote.id} />)}
       </div>
     </div>
   );

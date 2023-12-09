@@ -14,15 +14,20 @@ import {
 } from "../ui/context-menu";
 import * as Dialog from "../ui/dialog";
 import { useEmoteContextStore } from "~/app/store/emoteContextStore";
-import { cn, getGuildIcon } from "~/lib/utils";
-import { toast } from "sonner";
-import { endpoints } from "~/constants/apiroutes";
-import { useState } from "react";
+import { cn } from "~/lib/utils";
+import { forwardRef, useState } from "react";
 import { api } from "~/trpc/react";
 import prettyBytes from "pretty-bytes";
+import { motion } from "framer-motion";
+import {
+  AddToGuildContextMenu,
+  OpenInManual,
+  RemoveEmoteContextMenu,
+} from "./contextmenu";
 import { MAX_EMOTE_SIZE } from "~/constants";
 
-type EmoteProp = Omit<Omit<Omit<Emotes, "expiresOn">, "accountId">, "id">;
+type EmoteFlat = Omit<Emotes, "expiresOn" | "accountId" | "id">;
+type EmoteProp = EmoteFlat & { animated: boolean };
 
 export type EmoteInterface = EmoteProp & { internalId?: string };
 
@@ -30,162 +35,106 @@ interface Props {
   details: EmoteProp;
   className?: string;
   guildId?: string;
+  removeFn?: () => Promise<string>;
 }
 
-export const Emote = ({ details, className, guildId }: Props) => {
-  const { emoteName, emoteUrl, origin, reference } = details;
+export const Emote = forwardRef<HTMLDivElement, Props>(
+  ({ details, className, guildId, removeFn }, ref) => {
+    const { emoteName, emoteUrl, origin, reference, animated } = details;
 
-  const {
-    data: imageSize,
-    refetch,
-    isLoading,
-  } = api.buffer.getSize.useQuery(emoteUrl, {
-    enabled: false,
-  });
+    const [isDeleted, setIsDeleted] = useState(false);
+    const [exceededSize, setExceededSize] = useState(false);
 
-  const [isDeleted, setIsDeleted] = useState(false);
-  const { guilds } = useEmoteContextStore((state) => state);
+    const {
+      data: imageSize,
+      refetch,
+      isLoading,
+    } = api.buffer.getSize.useQuery(emoteUrl, {
+      enabled: false,
+    });
 
-  const deleteEmote = async () => {
-    if (!guildId) throw { error: "Missing guild id." };
-    try {
-      const request = await fetch(
-        endpoints.removeEmoteFromGuild(reference, guildId),
-        {
-          method: "DELETE",
-          credentials: "include",
-        },
-      );
-
-      const response = (await request.json()) as {
-        message: string;
-        error: string;
-      };
-
-      if (!request.ok) {
-        throw response;
+    const fetchImageSize = async () => {
+      if (imageSize) return;
+      const { data } = await refetch();
+      if (!data) return;
+      if (data > MAX_EMOTE_SIZE - 12000) {
+        setExceededSize(true);
       }
+    };
 
-      setIsDeleted(true);
-      return response;
-    } catch (e) {
-      throw e;
-    }
-  };
+    const hideEmote = () => setIsDeleted(true);
 
-  const addEmote = async (guildId: string) => {
-    try {
-      const body = {
-        emoteName,
-        emoteUrl,
-      };
-      const request = await fetch(endpoints.addEmoteToGuild(guildId), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(body),
-      });
+    const { guilds } = useEmoteContextStore((state) => state);
 
-      const response = (await request.json()) as {
-        message: string;
-        error: string;
-      };
+    if (isDeleted) return null;
 
-      if (!request.ok) {
-        throw response;
-      }
-
-      return response;
-    } catch (e) {
-      throw e;
-    }
-  };
-
-  if (isDeleted) return null;
-
-  return (
-    <ContextMenu onOpenChange={(e) => e && refetch()}>
-      <Dialog.Dialog onOpenChange={(e) => e && refetch()}>
-        <ContextMenuTrigger asChild>
-          <Dialog.DialogTrigger asChild>
-            <div
-              className={cn(
-                "flex w-20 cursor-pointer flex-col gap-1 transition-all hover:scale-105",
-                className,
-              )}
-              tabIndex={1}
-            >
-              <img
-                draggable={false}
-                className="aspect-square h-20 w-20 select-none rounded-md border border-neutral-300 object-contain shadow"
-                src={emoteUrl}
-                alt={`emote ${emoteName}`}
-              />
-              <p className="truncate text-xs text-muted-foreground">
-                {emoteName}
-              </p>
-            </div>
-          </Dialog.DialogTrigger>
-        </ContextMenuTrigger>
-        <Dialog.DialogContent>
-          <Dialog.DialogHeader>{emoteName}</Dialog.DialogHeader>
-          {guilds?.map((guild) => guild.name).join(", ")}
-          {isLoading && (
-            <div className="mr-3 h-16 w-16 animate-spin rounded-full border-[2px] border-neutral-800 border-t-transparent " />
-          )}
-          <code>{imageSize && prettyBytes(imageSize)}</code>
-          <img alt="stfu" src={emoteUrl} />
-        </Dialog.DialogContent>
-      </Dialog.Dialog>
-      <ContextMenuContent>
-        {guilds && (
-          <ContextMenuSub>
-            <ContextMenuSubTrigger>Add to server</ContextMenuSubTrigger>
-            <ContextMenuSubContent>
-              {guilds.map((guild) => (
-                <ContextMenuItem
-                  onClick={() => {
-                    toast.promise(addEmote(guild.id), {
-                      loading: "Submitting your emote...",
-                      success: (data) => data.message,
-                      error: (data: { error: string }) => {
-                        console.log(JSON.stringify(data));
-                        return data.error;
-                      },
-                    });
-                  }}
-                  key={guild.id}
-                  className="min-w-[10rem] justify-between"
-                >
-                  {guild.name}
-                  {guild.icon && (
-                    <img
-                      src={getGuildIcon(guild.id, guild.icon, { size: 16 })}
-                      alt="guild icon for"
-                      className="ml-3 h-5 w-5 rounded-full"
-                    />
+    return (
+      <motion.div
+        layout
+        initial={{ scale: 0.75, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.75, opacity: 0 }}
+        ref={ref}
+      >
+        <ContextMenu onOpenChange={fetchImageSize}>
+          <Dialog.Dialog onOpenChange={fetchImageSize}>
+            <ContextMenuTrigger asChild>
+              <Dialog.DialogTrigger asChild>
+                <div
+                  className={cn(
+                    "flex w-20 cursor-pointer flex-col gap-1 transition-all hover:scale-105",
+                    className,
                   )}
-                </ContextMenuItem>
-              ))}
-            </ContextMenuSubContent>
-          </ContextMenuSub>
-        )}
-        {guildId && guilds && guilds.some((g) => g.id === guildId) && (
-          <ContextMenuItem
-            onClick={() => {
-              toast.promise(deleteEmote(), {
-                loading: `Removing ${emoteName} emote...`,
-                success: (data) => data.message,
-                error: (data: { error: string }) => data.error,
-              });
-            }}
-            className="bg-destructive-foreground text-destructive"
-          >
-            Delete
-          </ContextMenuItem>
-        )}
-        <ContextMenuLabel>Emote origin: {origin}</ContextMenuLabel>
-      </ContextMenuContent>
-    </ContextMenu>
-  );
-};
+                  tabIndex={1}
+                >
+                  <div className="relative h-20 w-20">
+                    <img
+                      draggable={false}
+                      className="z-50 aspect-square h-full w-full select-none rounded-md border border-neutral-300 object-contain shadow"
+                      src={emoteUrl}
+                      alt={`emote ${emoteName}`}
+                    />
+                  </div>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {emoteName}
+                  </p>
+                </div>
+              </Dialog.DialogTrigger>
+            </ContextMenuTrigger>
+            <Dialog.DialogContent>
+              <Dialog.DialogHeader>{emoteName}</Dialog.DialogHeader>
+              {guilds?.map((guild) => guild.name).join(", ")}
+              {isLoading && (
+                <div className="mr-3 h-16 w-16 animate-spin rounded-full border-[2px] border-neutral-800 border-t-transparent " />
+              )}
+              <code>{imageSize && prettyBytes(imageSize)}</code>
+              <img alt="stfu" src={emoteUrl} />
+            </Dialog.DialogContent>
+          </Dialog.Dialog>
+          <ContextMenuContent>
+            <AddToGuildContextMenu emoteName={emoteName} emoteUrl={emoteUrl} />
+            {animated && (
+              <OpenInManual emoteName={emoteName} emoteUrl={emoteUrl} />
+            )}
+            {removeFn && (
+              <RemoveEmoteContextMenu
+                emoteName={emoteName}
+                removeFn={removeFn}
+                hideEmoteFn={hideEmote}
+              />
+            )}
+            <ContextMenuLabel>
+              Size: {prettyBytes(imageSize ?? 0)}
+            </ContextMenuLabel>
+            <ContextMenuLabel>Emote origin: {origin}</ContextMenuLabel>
+            <ContextMenuLabel>
+              {animated ? "Animated" : "Static"}
+            </ContextMenuLabel>
+          </ContextMenuContent>
+        </ContextMenu>
+      </motion.div>
+    );
+  },
+);
+
+Emote.displayName = "emote block";
