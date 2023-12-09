@@ -67,12 +67,14 @@ export const TaskCard = ({ taskDetails }: Props) => {
             src={emoteUrl}
           />
           <div className="flex h-full flex-col justify-between gap-1.5">
-            <div className="flex items-center gap-1.5 text-xs leading-none text-muted-foreground">
-              <Avatar className="h-4 w-4">
-                <AvatarImage src={guildIcon ?? ""} />
-              </Avatar>
-              {guildName}
-            </div>
+            {guildName && (
+              <div className="flex items-center gap-1.5 text-xs leading-none text-muted-foreground">
+                <Avatar className="h-4 w-4">
+                  <AvatarImage src={guildIcon ?? ""} />
+                </Avatar>
+                {guildName}
+              </div>
+            )}
             <p className="font-medium leading-none">{emoteName}</p>
             <code className="flex items-center gap-1 text-xs leading-none text-muted-foreground">
               <TimerIcon /> {timeLeftFormatted}
