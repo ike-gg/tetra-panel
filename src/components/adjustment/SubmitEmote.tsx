@@ -31,7 +31,7 @@ interface Props {
 }
 
 const formSchema = z.object({
-  guildId: z.string(),
+  guildId: z.string().min(1, "Select a server"),
   emoteName: z
     .string()
     .min(2, "Ninumimum 2 characters")
@@ -49,7 +49,7 @@ export const SubmitEmote = ({ isCorrectSize, modifiedBase64, task }: Props) => {
   const userGuilds = useEmoteContextStore((s) => s.guilds);
 
   const form = useForm<FormSchema>({
-    defaultValues: { emoteName: task.emoteName, guildId: task.guildId },
+    defaultValues: { emoteName: task.emoteName },
     resolver: zodResolver(formSchema),
   });
 
@@ -62,11 +62,7 @@ export const SubmitEmote = ({ isCorrectSize, modifiedBase64, task }: Props) => {
     setGuild(newGuild);
   }, [guildId, userGuilds]);
 
-  const [guild, setGuild] = useState<ContextGuild>({
-    id: task.guildId,
-    name: task.guildName,
-    icon: task.guildIcon,
-  });
+  const [guild, setGuild] = useState<ContextGuild>();
 
   const onSubmit = async (formData: FormSchema) => {
     try {
@@ -151,6 +147,7 @@ export const SubmitEmote = ({ isCorrectSize, modifiedBase64, task }: Props) => {
                       </Select.SelectGroup>
                     </Select.SelectContent>
                   </Select.Select>
+                  <Form.FormMessage />
                 </Form.FormItem>
               )}
             />
@@ -174,7 +171,7 @@ export const SubmitEmote = ({ isCorrectSize, modifiedBase64, task }: Props) => {
                 src={modifiedBase64}
               />
               <ArrowRightIcon />
-              {guild.icon && (
+              {guild?.icon && (
                 <img
                   alt="guild"
                   className="h-24 w-24 rounded-xl border object-contain shadow-xl"
@@ -184,7 +181,7 @@ export const SubmitEmote = ({ isCorrectSize, modifiedBase64, task }: Props) => {
             </div>
             <TypographyMuted className="text-center">
               Are you sure you want to add <b>{emoteName}</b> emote to{" "}
-              <b>{guild.name}</b>?
+              <b>{guild?.name}</b>?
             </TypographyMuted>
             {form.formState.errors.root && (
               <Alert variant="destructive">
