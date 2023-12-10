@@ -32,10 +32,11 @@ interface Props {
   className?: string;
   guildId?: string;
   removeFn?: () => Promise<string>;
+  hasPermissionsToRemove?: boolean;
 }
 
 export const Emote = forwardRef<HTMLDivElement, Props>(
-  ({ details, className, guildId, removeFn }, ref) => {
+  ({ details, className, guildId, removeFn, hasPermissionsToRemove }, ref) => {
     const { emoteName, emoteUrl, origin, reference, animated } = details;
 
     const [isDeleted, setIsDeleted] = useState(false);
@@ -112,7 +113,7 @@ export const Emote = forwardRef<HTMLDivElement, Props>(
             {animated && (
               <OpenInManual emoteName={emoteName} emoteUrl={emoteUrl} />
             )}
-            {removeFn && (
+            {hasPermissionsToRemove && removeFn && (
               <RemoveEmoteContextMenu
                 emoteName={emoteName}
                 removeFn={removeFn}

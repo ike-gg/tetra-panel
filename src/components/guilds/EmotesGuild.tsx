@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { Emote, type EmoteInterface } from "./Emote";
+import { useEffect, useState } from "react";
+import { Emote, type EmoteInterface } from "../emotes/Emote";
 import { Input } from "../ui/input";
 import { AnimatePresence } from "framer-motion";
 import Fuse from "fuse.js";
@@ -64,18 +64,18 @@ export function EmotesGuild({
   };
 
   return (
-    <div>
-      <Input onChange={(e) => setSearch(e.currentTarget.value)} />
-      <div className="flex flex-wrap gap-3">
+    <div className="space-y-6 rounded-md border bg-neutral-100 p-6">
+      <Input
+        placeholder="Search for emotes..."
+        onChange={(e) => setSearch(e.currentTarget.value)}
+      />
+      <div className="flex flex-wrap justify-between gap-3">
         <AnimatePresence mode="popLayout">
           {items.map((e) => (
             <Emote
               details={e}
-              removeFn={
-                hasPermissionsToDelete
-                  ? () => removeEmote(e.reference)
-                  : undefined
-              }
+              removeFn={() => removeEmote(e.reference)}
+              hasPermissionsToRemove={hasPermissionsToDelete ?? false}
               guildId={guildId}
               key={e.emoteUrl}
             />
