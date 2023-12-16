@@ -5,7 +5,7 @@ import { type EmoteInterface } from "~/components/emotes/Emote";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { firstLetters, getGuildIcon } from "~/lib/utils";
 import { TypographyH2 } from "~/components/ui/typography";
-import { EmotesGuild } from "~/components/emotes/EmotesGuild";
+import { EmotesGuild } from "~/components/guilds/EmotesGuild";
 import { forwardRef } from "react";
 
 export default async function GuildIdPage({
