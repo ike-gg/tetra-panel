@@ -15,9 +15,6 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Tetra Panel",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
-  twitter: {
-    card: "summary_large_image",
-  },
   themeColor: "#000000",
   authors: [{ name: "ike", url: "https://github.com/ike-gg" }],
 };
