@@ -6,7 +6,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { firstLetters, getGuildIcon } from "~/lib/utils";
 import { TypographyH2 } from "~/components/ui/typography";
 import { EmotesGuild } from "~/components/guilds/EmotesGuild";
-import { forwardRef } from "react";
 
 export default async function GuildIdPage({
   params,
@@ -36,9 +35,14 @@ export default async function GuildIdPage({
   };
 
   const emotesI: EmoteInterface[] = emotes.map((emote): EmoteInterface => {
-    const { name, url, id, animated } = emote;
+    const { name, id, animated } = emote;
+
+    const url = animated
+      ? `https://cdn.discordapp.com/emojis/${id}.gif`
+      : `https://cdn.discordapp.com/emojis/${id}.webp`;
+
     return {
-      animated: animated ?? url.endsWith(".gif"),
+      animated: animated!,
       emoteName: name!,
       emoteUrl: url,
       origin: "DISCORD",
