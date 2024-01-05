@@ -52,10 +52,10 @@ export const SignIn = ({ provider }: Props) => {
             Are there alternative login options?
           </AccordionTrigger>
           <AccordionContent className="w-fit">
-            Unfortunately, no. Introducing other login methods wouldn&apos;t
-            make sense as the entire application is ultimately built around
-            Discord. To use the Tetra Panel, we require essential information
-            about your account, allowing us to authenticate you.
+            Unfortunately, no. Providing other login methods wouldn&apos;t make
+            sense as the entire application is ultimately built around Discord.
+            To use the Tetra Panel, we require basic information about your
+            account, allowing us to authenticate you.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
