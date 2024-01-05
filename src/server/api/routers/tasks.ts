@@ -1,7 +1,12 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const tasksRouter = createTRPCRouter({
+  get: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
+    const task = ctx.db.manualAdjustment.findFirst({ where: { id: input } });
+
+    return task;
+  }),
   add: protectedProcedure
     .input(z.object({ emoteUrl: z.string().url(), emoteName: z.string() }))
     .mutation(async ({ ctx, input }) => {
