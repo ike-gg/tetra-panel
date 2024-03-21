@@ -1,5 +1,5 @@
 import { DimensionsIcon } from "@radix-ui/react-icons";
-import { useAdjustmentStore } from "~/app/store/adjustmentStore";
+import { useAdjustmentStore } from "~/store/adjustmentStore";
 import { Button } from "~/components/ui/button";
 import { type FittingOptions } from "~/types";
 

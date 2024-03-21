@@ -1,4 +1,4 @@
-import { type ContextGuild } from "~/app/store/guildStore";
+import { type ContextGuild } from "~/store/guildStore";
 import { DropdownMenuItem } from "~/components/ui/dropdown-menu";
 import { GuildIcon } from "~/components/ui/guildIcon";
 import { useUploadEmote } from "~/hooks/emotes/useUpdateEmote";

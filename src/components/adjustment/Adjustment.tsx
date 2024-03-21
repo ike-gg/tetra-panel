@@ -7,7 +7,7 @@
 import { type ManualAdjustment } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import { useAdjustmentStore } from "~/app/store/adjustmentStore";
+import { useAdjustmentStore } from "~/store/adjustmentStore";
 import { ColorsOption } from "./options/ColorsOption";
 import { LossyOption } from "./options/LossyOption";
 import { ScaleOption } from "./options/ScaleOption";

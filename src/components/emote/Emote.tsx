@@ -14,7 +14,7 @@ import { type FittingOptions } from "~/types";
 import { useQuery } from "@tanstack/react-query";
 import { getEmoteProviderData } from "~/lib/emotes/getEmoteProviderData";
 import { EmoteContextMenu } from "./contextmenu/EmoteContextMenu";
-import { useGuildStore } from "~/app/store/guildStore";
+import { useGuildStore } from "~/store/guildStore";
 
 export type EmoteFlat = Omit<Emotes, "expiresOn" | "accountId" | "id">;
 export type EmoteProp = EmoteFlat & { animated: boolean };

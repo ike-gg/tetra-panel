@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { routes } from "~/constants/routes";
 import * as Select from "../ui/select";
 import { useEffect, useState } from "react";
-import { type ContextGuild, useGuildStore } from "~/app/store/guildStore";
+import { type ContextGuild, useGuildStore } from "~/store/guildStore";
 import { getGuildIcon, parseTetraApiError } from "~/lib/utils";
 import { Input } from "../ui/input";
 import { z } from "zod";

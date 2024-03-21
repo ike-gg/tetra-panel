@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useGuildStore } from "~/app/store/guildStore";
+import { useGuildStore } from "~/store/guildStore";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,6 +14,7 @@ import { getGuildIcon } from "~/lib/utils";
 import { SevenTVLogo } from "../icons/SevenTVLogo";
 import { BTTVLogo } from "../icons/BTTVLogo";
 import { FFZLogo } from "../icons/FFZLogo";
+import { Spinner } from "../ui/spinner";
 
 const ALL_LINKS = [
   {
@@ -47,7 +48,8 @@ const EMOTE_RPOVIDERS = [
 ] as const;
 
 export const Nav = () => {
-  const guilds = useGuildStore((s) => s.guilds);
+  const guilds = useGuildStore((state) => state.guilds);
+  const isGuildsLoading = useGuildStore((state) => state.isGuildsLoading);
   return (
     <>
       <div className="hidden md:block">
@@ -93,25 +95,27 @@ export const Nav = () => {
               <NavigationMenuTrigger>Your guilds</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {guilds?.map((guild) => (
-                    <li key={guild.id}>
-                      <NavigationMenuLink
-                        className="flex items-center gap-2 p-2 hover:bg-muted"
-                        href={`/guild/${guild.id}`}
-                      >
-                        {guild.icon && (
-                          <img
-                            alt={guild.name + " guild icon"}
-                            className="rounded-full"
-                            src={getGuildIcon(guild.id, guild.icon, {
-                              size: 32,
-                            })}
-                          />
-                        )}
-                        <h3>{guild.name}</h3>
-                      </NavigationMenuLink>
-                    </li>
-                  ))}
+                  {isGuildsLoading && <Spinner />}
+                  {!isGuildsLoading &&
+                    guilds?.map((guild) => (
+                      <li key={guild.id}>
+                        <NavigationMenuLink
+                          className="flex items-center gap-2 p-2 hover:bg-muted"
+                          href={`/guild/${guild.id}`}
+                        >
+                          {guild.icon && (
+                            <img
+                              alt={guild.name + " guild icon"}
+                              className="rounded-full"
+                              src={getGuildIcon(guild.id, guild.icon, {
+                                size: 32,
+                              })}
+                            />
+                          )}
+                          <h3>{guild.name}</h3>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>

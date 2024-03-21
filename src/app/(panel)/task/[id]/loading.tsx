@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useAdjustmentStore } from "~/app/store/adjustmentStore";
+import { useAdjustmentStore } from "~/store/adjustmentStore";
 import { Separator } from "~/components/ui/separator";
 import { Skeleton } from "~/components/ui/skeleton";
 import { Spinner } from "~/components/ui/spinner";

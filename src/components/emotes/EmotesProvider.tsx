@@ -7,7 +7,6 @@ import { type QueryEmoteFn } from "~/lib/emotes/query";
 import { Skeleton } from "../ui/skeleton";
 import { Button } from "../ui/button";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
-import { AnimatePresence } from "framer-motion";
 
 interface Props {
   query: string;

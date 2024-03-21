@@ -8,7 +8,7 @@ import wretch from "wretch";
 import { endpoints } from "~/constants/apiroutes";
 import { WretchError } from "wretch/resolver";
 import { parseTetraApiError } from "~/lib/utils";
-import { useGuildStore } from "~/app/store/guildStore";
+import { useGuildStore } from "~/store/guildStore";
 
 export function EmotesGuild({
   list,

@@ -1,6 +1,6 @@
 import { ColorWheelIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
-import { useAdjustmentStore } from "~/app/store/adjustmentStore";
+import { useAdjustmentStore } from "~/store/adjustmentStore";
 import { Button } from "~/components/ui/button";
 import { Slider } from "~/components/ui/slider";
 

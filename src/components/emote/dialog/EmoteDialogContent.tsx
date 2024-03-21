@@ -1,4 +1,4 @@
-import { useGuildStore } from "~/app/store/guildStore";
+import { useGuildStore } from "~/store/guildStore";
 import * as Dialog from "../../ui/dialog";
 import { type EmoteProp } from "../Emote";
 import { Button } from "../../ui/button";

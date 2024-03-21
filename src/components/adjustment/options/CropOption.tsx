@@ -3,7 +3,7 @@ import "react-image-crop/dist/ReactCrop.css";
 import { CropIcon } from "@radix-ui/react-icons";
 import { useRef, useState } from "react";
 import ReactCrop, { type Crop } from "react-image-crop";
-import { useAdjustmentStore } from "~/app/store/adjustmentStore";
+import { useAdjustmentStore } from "~/store/adjustmentStore";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,

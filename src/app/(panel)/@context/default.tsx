@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useGuildStore } from "~/app/store/guildStore";
+import { useGuildStore } from "~/store/guildStore";
 
 export default function DefaultPageTasksHomeParallel() {
   const [guildStatus, setGuildStatus] = useState("Loading guilds...");

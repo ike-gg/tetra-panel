@@ -13,6 +13,7 @@ export interface ContextGuild {
 interface GuildStore {
   fetch: () => Promise<void>;
   guilds: ContextGuild[] | null;
+  isGuildsLoading: boolean;
 }
 
 export const useGuildStore = create<GuildStore>()((set) => ({
@@ -35,7 +36,10 @@ export const useGuildStore = create<GuildStore>()((set) => ({
     } catch (error) {
       set({ guilds: [] });
       throw new Error("Error while fetching guilds");
+    } finally {
+      set({ isGuildsLoading: false });
     }
   },
   guilds: null,
+  isGuildsLoading: true,
 }));

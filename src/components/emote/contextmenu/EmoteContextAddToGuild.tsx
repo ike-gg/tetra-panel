@@ -1,4 +1,4 @@
-import { useGuildStore } from "~/app/store/guildStore";
+import { useGuildStore } from "~/store/guildStore";
 import {
   ContextMenuSub,
   ContextMenuSubTrigger,

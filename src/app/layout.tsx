@@ -38,7 +38,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`font-sans ${GeistSans.className} bg-neutral-50`}>
+      <body className={`${GeistSans.className} bg-neutral-50`}>
         <TRPCReactProvider headers={headers()}>
           {children}
           <Toaster

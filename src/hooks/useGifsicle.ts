@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { useEffect, useState } from "react";
 import { type Metadata } from "sharp";
-import { type AdjustmentOptionsStateProperties } from "~/app/store/adjustmentStore";
+import { type AdjustmentOptionsStateProperties } from "~/store/adjustmentStore";
 import {
   arrayBufferToBase64,
   base64ToArrayBuffer,
