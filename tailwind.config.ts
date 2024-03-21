@@ -85,10 +85,23 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "scale-x": {
+          from: { transform: `scaleX(0)` },
+          to: { transform: `scaleX(1)` },
+        },
+      },
+      transitionTimingFunction: {
+        "ease-out-quad": "cubic-bezier(.25, .46, .45, .94)",
+        "ease-out-cubic": "cubic-bezier(.215, .61, .355, 1)",
+        "ease-out-quart": "cubic-bezier(.165, .84, .44, 1)",
+        "ease-out-quint": "cubic-bezier(.23, 1, .32, 1)",
+        "ease-out-expo": "cubic-bezier(.19, 1, .22, 1)",
+        "ease-out-circ": "cubic-bezier(.075, .82, .165, 1)",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "scale-x": "scale-x 2s cubic-bezier(.165, .84, .44, 1) both",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
@@ -106,5 +119,8 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwindcss-animation-delay"),
+  ],
 } satisfies Config;

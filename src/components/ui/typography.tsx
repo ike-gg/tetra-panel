@@ -23,7 +23,7 @@ export function TypographyH2({ children, className }: TypographyProps) {
   return (
     <h2
       className={cn(
-        "bg-gradient-to-br from-neutral-900 to-neutral-100 bg-clip-text pb-2 text-2xl font-semibold tracking-tight text-transparent",
+        "text-lg font-medium tracking-tight text-neutral-600",
         className,
       )}
     >

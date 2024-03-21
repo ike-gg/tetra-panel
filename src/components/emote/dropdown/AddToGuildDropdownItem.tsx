@@ -1,7 +1,7 @@
 import { type ContextGuild } from "~/app/store/guildStore";
 import { DropdownMenuItem } from "~/components/ui/dropdown-menu";
 import { GuildIcon } from "~/components/ui/guildIcon";
-import { useUpdateEmote } from "~/hooks/emotes/useUpdateEmote";
+import { useUploadEmote } from "~/hooks/emotes/useUpdateEmote";
 import { type EmoteProp } from "../Emote";
 import { type FittingOptions } from "~/types";
 
@@ -16,7 +16,7 @@ export const AddToGuildDropdownItem = ({
   emoteUrl,
   fitting,
 }: Props) => {
-  const { emoteState, isEmoteUploading, updateEmote } = useUpdateEmote();
+  const { emoteState, isEmoteUploading, updateEmote } = useUploadEmote();
 
   const canBeAdded = emoteState !== "uploaded" && isEmoteUploading;
 

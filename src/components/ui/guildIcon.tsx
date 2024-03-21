@@ -11,9 +11,7 @@ interface Props {
 
 export const GuildIcon = ({ className, iconId, id, name, options }: Props) => {
   return (
-    <Avatar
-      className={cn("h-8 w-8 shadow-md shadow-neutral-500/10", className)}
-    >
+    <Avatar className={cn("size-8 shadow-md shadow-neutral-500/10", className)}>
       {iconId && (
         <AvatarImage
           alt={`guild icon for ${name} guild`}

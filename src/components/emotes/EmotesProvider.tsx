@@ -85,21 +85,16 @@ export function EmotesProvider({
         </Alert.Alert>
       )}
       <div className="flex flex-wrap gap-3">
-        <AnimatePresence mode="wait">
-          {isLoading &&
-            Array.from({ length: rows * (columns ?? 0) }).map((_, i) => (
-              <div
-                className="flex flex-col gap-1"
-                key={i + "el" + providerName}
-              >
-                <Skeleton className="h-20 w-20" />
-                <Skeleton className="h-4 w-20 rounded-sm" />
-              </div>
-            ))}
-          {data?.map((emote) => (
-            <Emote details={emote} key={emote.reference + emote.origin} />
+        {isLoading &&
+          Array.from({ length: rows * (columns ?? 0) }).map((_, i) => (
+            <div className="flex flex-col gap-1" key={i + "el" + providerName}>
+              <Skeleton className="h-20 w-20" />
+              <Skeleton className="h-4 w-20 rounded-sm" />
+            </div>
           ))}
-        </AnimatePresence>
+        {data?.map((emote) => (
+          <Emote details={emote} key={emote.reference + emote.origin} />
+        ))}
       </div>
       {true && (
         <nav className="flex items-center justify-center gap-2">

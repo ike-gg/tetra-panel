@@ -14,7 +14,8 @@ interface Props {
 
 export const EmoteContextOpenInManual = ({ emoteName, emoteUrl }: Props) => {
   const router = useRouter();
-  const { mutateAsync } = api.tasks.add.useMutation({});
+
+  const { mutateAsync } = api.tasks.add.useMutation();
 
   const redirectToTask = (taskId: string) => {
     router.push(routes.tasks.id(taskId));

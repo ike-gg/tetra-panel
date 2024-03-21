@@ -9,7 +9,7 @@ import { routes } from "~/constants/routes";
 import { parseTetraApiError } from "~/lib/utils";
 import { useState } from "react";
 
-export const useUpdateEmote = () => {
+export const useUploadEmote = () => {
   const [isEmoteUploading, setIsEmoteUploading] = useState(false);
   const [emoteState, setEmoteState] = useState<"init" | "uploaded" | "error">(
     "init",

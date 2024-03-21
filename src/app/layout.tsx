@@ -1,16 +1,11 @@
 import "~/styles/globals.css";
 
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import { headers } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Toaster } from "sonner";
 import { type Metadata } from "next";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
 
 export const metadata: Metadata = {
   title: "Tetra Panel",
@@ -43,7 +38,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`font-sans ${inter.variable} bg-neutral-50`}>
+      <body className={`font-sans ${GeistSans.className} bg-neutral-50`}>
         <TRPCReactProvider headers={headers()}>
           {children}
           <Toaster

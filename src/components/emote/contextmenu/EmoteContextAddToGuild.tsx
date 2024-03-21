@@ -1,4 +1,3 @@
-import { toast } from "sonner";
 import { useGuildStore } from "~/app/store/guildStore";
 import {
   ContextMenuSub,
@@ -6,13 +5,9 @@ import {
   ContextMenuSubContent,
   ContextMenuItem,
 } from "~/components/ui/context-menu";
-import wretch from "wretch";
-import { endpoints } from "~/constants/apiroutes";
-import { WretchError } from "wretch/resolver";
-import { cn, getGuildIcon, parseTetraApiError } from "~/lib/utils";
-import { useRouter } from "next/navigation";
-import { routes } from "~/constants/routes";
+import { cn, getGuildIcon } from "~/lib/utils";
 import { Plus } from "lucide-react";
+import { useUploadEmote } from "~/hooks/emotes/useUpdateEmote";
 
 interface Props {
   emoteUrl: string;
@@ -29,45 +24,7 @@ export const EmoteContextAddToGuild = ({
 
   const addDisabled = !guilds || guilds.length === 0;
 
-  const router = useRouter();
-
-  const redirectToTask = (taskId: string) => {
-    router.push(routes.tasks.id(taskId));
-  };
-
-  const addEmote = async (guildId: string) => {
-    const id = self.crypto.randomUUID();
-    toast.loading(`Submitting ${emoteName} emote...`, { id });
-    try {
-      const response: { message: string } = await wretch(
-        endpoints.addEmoteToGuild(guildId),
-      )
-        .options({ credentials: "include" })
-        .post({ emoteName, emoteUrl })
-        .json();
-
-      toast.success(response.message, { id });
-    } catch (error) {
-      if (error instanceof WretchError && error.status === 301) {
-        const { message, taskId } = error.json as {
-          message: string;
-          taskId: string;
-        };
-        toast.warning(message, {
-          id,
-          action: {
-            label: "Open",
-            onClick: () => redirectToTask(taskId),
-          },
-        });
-      } else if (error instanceof Error) {
-        const message = parseTetraApiError(error);
-        toast.error(message, { id });
-      } else {
-        toast.error("Something went wrong", { id });
-      }
-    }
-  };
+  const { updateEmote } = useUploadEmote();
 
   return (
     <ContextMenuSub>
@@ -82,7 +39,13 @@ export const EmoteContextAddToGuild = ({
         <ContextMenuSubContent>
           {guilds.map((guild) => (
             <ContextMenuItem
-              onClick={() => addEmote(guild.id)}
+              onClick={() =>
+                updateEmote({
+                  guildId: guild.id,
+                  name: emoteName,
+                  url: emoteUrl,
+                })
+              }
               key={guild.id}
               className="min-w-[10rem] justify-between"
             >

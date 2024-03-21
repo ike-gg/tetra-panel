@@ -63,7 +63,7 @@ export function EmotesGuild({
   };
 
   return (
-    <div className="space-y-6 rounded-md border bg-neutral-100 p-6">
+    <div className="space-y-6 ">
       <Input
         placeholder="Search for emotes..."
         onChange={(e) => setSearch(e.currentTarget.value)}
