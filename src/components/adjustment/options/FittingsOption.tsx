@@ -1,14 +1,12 @@
 import { DimensionsIcon } from "@radix-ui/react-icons";
-import {
-  type FittingOption,
-  useAdjustmentStore,
-} from "~/app/store/adjustmentStore";
+import { useAdjustmentStore } from "~/app/store/adjustmentStore";
 import { Button } from "~/components/ui/button";
+import { type FittingOptions } from "~/types";
 
 export const FittingsOption = () => {
   const { setFitting, fitting } = useAdjustmentStore((state) => state);
 
-  const options: FittingOption[] = ["contain", "cover", "fill"];
+  const options: FittingOptions[] = ["contain", "cover", "fill"];
 
   return (
     <div className="flex w-full gap-4">
