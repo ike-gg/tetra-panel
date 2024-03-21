@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
@@ -13,7 +13,6 @@ export const size = {
 import { Inter } from "next/font/google";
 import { api } from "~/trpc/server";
 import { getGuildIcon } from "~/lib/utils";
-import { PrismaClient } from "@prisma/client";
 const inter = Inter({ subsets: ["latin"] });
 
 export const contentType = "image/png";
@@ -104,7 +103,6 @@ export default async function Image({
         <div></div>
       </div>
     ),
-    // ImageResponse options
     {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageResponse's width and height.
