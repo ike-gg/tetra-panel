@@ -1,7 +1,7 @@
 import { querySevenTV } from "./seventv";
 import { queryBTTV } from "./bttv";
 import { queryFFZ } from "./ffz";
-import { type EmoteInterface } from "~/components/emotes/Emote";
+import { type EmoteInterface } from "~/components/emote/Emote";
 
 export interface QueryEmoteOptions {
   page?: number;

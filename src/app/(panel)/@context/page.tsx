@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useEmoteContextStore } from "~/app/store/emoteContextStore";
+import { useGuildStore } from "~/app/store/guildStore";
 
 export default function PageTasksHomeParallel() {
   const [guildStatus, setGuildStatus] = useState("Loading guilds...");
-  const { fetch, guilds } = useEmoteContextStore();
+  const { fetch, guilds } = useGuildStore();
 
   useEffect(() => {
     if (guilds === null)

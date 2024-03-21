@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { type GuildEmoji } from "discord.js";
 import { endpoints } from "~/constants/apiroutes";
-import { type EmoteInterface } from "~/components/emotes/Emote";
+import { type EmoteInterface } from "~/components/emote/Emote";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { firstLetters, getGuildIcon } from "~/lib/utils";
 import { TypographyH2 } from "~/components/ui/typography";

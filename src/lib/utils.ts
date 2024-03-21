@@ -23,7 +23,7 @@ export function parseTetraApiError(error: WretchError | Error) {
   return error.message ?? "Unknown error";
 }
 
-interface GetIconOptions {
+export interface GetIconOptions {
   size?: 16 | 32 | 64 | 128 | 256 | 512;
 }
 

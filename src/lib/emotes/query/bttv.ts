@@ -1,5 +1,5 @@
 import wretch from "wretch";
-import { type EmoteInterface } from "~/components/emotes/Emote";
+import { type EmoteInterface } from "~/components/emote/Emote";
 import { bttvTransformSourceUrl } from "../emoteProviders";
 import { type QueryEmoteFn, type QueryEmoteOptions } from ".";
 

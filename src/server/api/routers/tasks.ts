@@ -7,6 +7,7 @@ export const tasksRouter = createTRPCRouter({
 
     return task;
   }),
+
   add: protectedProcedure
     .input(z.object({ emoteUrl: z.string().url(), emoteName: z.string() }))
     .mutation(async ({ ctx, input }) => {

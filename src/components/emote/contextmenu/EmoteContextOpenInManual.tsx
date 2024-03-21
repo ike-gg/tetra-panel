@@ -12,7 +12,7 @@ interface Props {
   emoteName: string;
 }
 
-export const OpenInManual = ({ emoteName, emoteUrl }: Props) => {
+export const EmoteContextOpenInManual = ({ emoteName, emoteUrl }: Props) => {
   const router = useRouter();
   const { mutateAsync } = api.tasks.add.useMutation({});
 

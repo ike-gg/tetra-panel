@@ -10,12 +10,12 @@ export interface ContextGuild {
   icon?: string | null;
 }
 
-interface EmoteContextState {
+interface GuildStore {
   fetch: () => Promise<void>;
   guilds: ContextGuild[] | null;
 }
 
-export const useEmoteContextStore = create<EmoteContextState>()((set) => ({
+export const useGuildStore = create<GuildStore>()((set) => ({
   fetch: async () => {
     try {
       const guilds: { managingGuilds: PartialGuild[] } = await wretch(

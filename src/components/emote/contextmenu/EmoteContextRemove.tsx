@@ -1,4 +1,4 @@
-import { TrashIcon } from "@radix-ui/react-icons";
+import { Trash } from "lucide-react";
 import { toast } from "sonner";
 import { ContextMenuItem } from "~/components/ui/context-menu";
 
@@ -6,12 +6,14 @@ interface Props {
   removeFn: () => Promise<string>;
   hideEmoteFn: () => void;
   emoteName: string;
+  guildName?: string;
 }
 
-export const RemoveEmoteContextMenu = ({
+export const EmoteContextRemove = ({
   removeFn,
   emoteName,
   hideEmoteFn,
+  guildName,
 }: Props) => {
   return (
     <ContextMenuItem
@@ -27,8 +29,8 @@ export const RemoveEmoteContextMenu = ({
       }}
       className="bg-destructive-foreground text-destructive"
     >
-      <TrashIcon />
-      Delete
+      <Trash className="size-4" />
+      Delete {guildName ? `from ${guildName}` : ""}
     </ContextMenuItem>
   );
 };

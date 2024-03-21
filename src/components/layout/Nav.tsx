@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEmoteContextStore } from "~/app/store/emoteContextStore";
+import { useGuildStore } from "~/app/store/guildStore";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,6 +11,9 @@ import {
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
 import { getGuildIcon } from "~/lib/utils";
+import { SevenTVLogo } from "../icons/SevenTVLogo";
+import { BTTVLogo } from "../icons/BTTVLogo";
+import { FFZLogo } from "../icons/FFZLogo";
 
 const ALL_LINKS = [
   {
@@ -25,18 +28,39 @@ const ALL_LINKS = [
   },
 ] as const;
 
+const EMOTE_RPOVIDERS = [
+  {
+    name: "7TV",
+    icon: SevenTVLogo,
+    href: "/library?provider=7tv",
+  },
+  {
+    name: "BTTV",
+    icon: BTTVLogo,
+    href: "/library?provider=bttv",
+  },
+  {
+    name: "FFZ",
+    icon: FFZLogo,
+    href: "/library?provider=ffz",
+  },
+] as const;
+
 export const Nav = () => {
-  const guilds = useEmoteContextStore((s) => s.guilds);
+  const guilds = useGuildStore((s) => s.guilds);
   return (
     <>
       <div className="hidden md:block">
         <NavigationMenu>
           <NavigationMenuList>
             {ALL_LINKS.map((group) => (
-              <NavigationMenuItem key={group.name + "nav"}>
+              <NavigationMenuItem
+                className="![&>*~p]:bg-pink-300/50"
+                key={group.name + "nav"}
+              >
                 <NavigationMenuTrigger>{group.name}</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="w-[450px] p-4">
+                  <div className="flex w-80 flex-col gap-4 p-4">
                     {group.links.map((link) => (
                       <NavigationMenuLink
                         className="block p-2 hover:bg-muted"
@@ -49,6 +73,18 @@ export const Nav = () => {
                         </p>
                       </NavigationMenuLink>
                     ))}
+                    <div className="flex gap-4">
+                      {EMOTE_RPOVIDERS.map(({ href, icon: Icon, name }) => (
+                        <NavigationMenuLink
+                          className="group flex-1 space-y-2 p-3 text-xs text-muted-foreground hover:bg-muted"
+                          href={href}
+                          key={href}
+                        >
+                          <Icon className="size-8 fill-neutral-300 group-hover:fill-neutral-500" />
+                          <p>{name}</p>
+                        </NavigationMenuLink>
+                      ))}
+                    </div>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>

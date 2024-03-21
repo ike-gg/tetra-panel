@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
-import { Emote } from "~/components/emotes/Emote";
+import { Emote } from "~/components/emote/Emote";
 import { TypographyH2 } from "~/components/ui/typography";
 
 import { getServerAuthSession } from "~/server/auth";

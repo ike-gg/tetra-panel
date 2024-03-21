@@ -1,6 +1,5 @@
-import { PlusIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
-import { useEmoteContextStore } from "~/app/store/emoteContextStore";
+import { useGuildStore } from "~/app/store/guildStore";
 import {
   ContextMenuSub,
   ContextMenuSubTrigger,
@@ -10,17 +9,25 @@ import {
 import wretch from "wretch";
 import { endpoints } from "~/constants/apiroutes";
 import { WretchError } from "wretch/resolver";
-import { getGuildIcon, parseTetraApiError } from "~/lib/utils";
+import { cn, getGuildIcon, parseTetraApiError } from "~/lib/utils";
 import { useRouter } from "next/navigation";
 import { routes } from "~/constants/routes";
+import { Plus } from "lucide-react";
 
 interface Props {
   emoteUrl: string;
   emoteName: string;
+  exceededSize?: boolean;
 }
 
-export const AddToGuildContextMenu = ({ emoteName, emoteUrl }: Props) => {
-  const guilds = useEmoteContextStore((state) => state.guilds);
+export const EmoteContextAddToGuild = ({
+  emoteName,
+  emoteUrl,
+  exceededSize,
+}: Props) => {
+  const guilds = useGuildStore((state) => state.guilds);
+
+  const addDisabled = !guilds || guilds.length === 0;
 
   const router = useRouter();
 
@@ -62,31 +69,35 @@ export const AddToGuildContextMenu = ({ emoteName, emoteUrl }: Props) => {
     }
   };
 
-  if (!guilds) return null;
-
   return (
     <ContextMenuSub>
-      <ContextMenuSubTrigger>
-        <PlusIcon /> Add to server
+      <ContextMenuSubTrigger
+        disabled={addDisabled}
+        className={cn(addDisabled && "opacity-50")}
+      >
+        <Plus className="size-4" />{" "}
+        {exceededSize ? "Add optimized to server" : "Add to server"}
       </ContextMenuSubTrigger>
-      <ContextMenuSubContent>
-        {guilds.map((guild) => (
-          <ContextMenuItem
-            onClick={() => addEmote(guild.id)}
-            key={guild.id}
-            className="min-w-[10rem] justify-between"
-          >
-            {guild.name}
-            {guild.icon && (
-              <img
-                src={getGuildIcon(guild.id, guild.icon, { size: 16 })}
-                alt="guild icon for"
-                className="ml-3 h-5 w-5 rounded-full"
-              />
-            )}
-          </ContextMenuItem>
-        ))}
-      </ContextMenuSubContent>
+      {guilds && (
+        <ContextMenuSubContent>
+          {guilds.map((guild) => (
+            <ContextMenuItem
+              onClick={() => addEmote(guild.id)}
+              key={guild.id}
+              className="min-w-[10rem] justify-between"
+            >
+              {guild.name}
+              {guild.icon && (
+                <img
+                  src={getGuildIcon(guild.id, guild.icon, { size: 16 })}
+                  alt="guild icon for"
+                  className="ml-3 h-5 w-5 rounded-full"
+                />
+              )}
+            </ContextMenuItem>
+          ))}
+        </ContextMenuSubContent>
+      )}
     </ContextMenuSub>
   );
 };

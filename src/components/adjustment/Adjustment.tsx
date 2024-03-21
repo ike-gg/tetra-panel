@@ -22,6 +22,8 @@ import { SubmitEmote } from "./SubmitEmote";
 import { Separator } from "../ui/separator";
 import { AdjustmentProgress } from "./AdjustmentProgress";
 import { MAX_EMOTE_SIZE } from "~/constants";
+import { EmoteDialogDiscordPreview } from "../emote/dialog/EmoteDialogDiscordPreview";
+import { cn } from "~/lib/utils";
 
 interface Props {
   details: ManualAdjustment;
@@ -79,6 +81,15 @@ export function Adjustment({ details, emoteBase64, metadata }: Props) {
         <Separator />
         <CropOption emoteUrl={details.emoteUrl} />
       </div>
+      <EmoteDialogDiscordPreview
+        emote={{ emoteUrl: processed, emoteName: details.emoteName }}
+        fittingImageClass={cn(
+          fitting === "contain" && "object-contain",
+          fitting === "cover" && "object-cover",
+          fitting === "fill" && "object-fill",
+        )}
+        className="p-6"
+      />
       <div className="flex flex-col gap-4 rounded-md border bg-neutral-100 p-8">
         <AdjustmentProgress
           currentSize={processedSize!}

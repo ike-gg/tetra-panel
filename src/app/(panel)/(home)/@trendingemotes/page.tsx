@@ -1,4 +1,4 @@
-import { Emote } from "~/components/emotes/Emote";
+import { Emote } from "~/components/emote/Emote";
 import { TypographyH2 } from "~/components/ui/typography";
 import { stvEmoteSourceParser } from "~/lib/emotes/emoteProviders";
 import { type STVResponseGQL } from "~/types/7tv";
@@ -9,7 +9,6 @@ export default async function PageTrendingEmotesHomeParallel() {
     headers: {
       "Content-Type": "application/json",
     },
-    cache: "force-cache",
     next: {
       revalidate: 1200,
     },

@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Emote, type EmoteInterface } from "../emotes/Emote";
+import { Emote, type EmoteInterface } from "../emote/Emote";
 import { Input } from "../ui/input";
-import { AnimatePresence } from "framer-motion";
 import Fuse from "fuse.js";
 import wretch from "wretch";
 import { endpoints } from "~/constants/apiroutes";
 import { WretchError } from "wretch/resolver";
 import { parseTetraApiError } from "~/lib/utils";
-import { useEmoteContextStore } from "~/app/store/emoteContextStore";
+import { useGuildStore } from "~/app/store/guildStore";
 
 export function EmotesGuild({
   list,
@@ -21,7 +20,7 @@ export function EmotesGuild({
   const [search, setSearch] = useState("");
   const [debounceSearch, setDebounceSearch] = useState("");
 
-  const guilds = useEmoteContextStore((state) => state.guilds);
+  const guilds = useGuildStore((state) => state.guilds);
 
   const [fuse] = useState(new Fuse(list, { keys: ["emoteName"] }));
   const [items, setItems] = useState(list);
@@ -69,18 +68,16 @@ export function EmotesGuild({
         placeholder="Search for emotes..."
         onChange={(e) => setSearch(e.currentTarget.value)}
       />
-      <div className="flex flex-wrap justify-between gap-3">
-        <AnimatePresence mode="popLayout">
-          {items.map((e) => (
-            <Emote
-              details={e}
-              removeFn={() => removeEmote(e.reference)}
-              hasPermissionsToRemove={hasPermissionsToDelete ?? false}
-              guildId={guildId}
-              key={e.emoteUrl}
-            />
-          ))}
-        </AnimatePresence>
+      <div className="flex flex-wrap gap-3">
+        {items.map((e) => (
+          <Emote
+            details={e}
+            removeFn={() => removeEmote(e.reference)}
+            hasPermissionsToRemove={hasPermissionsToDelete ?? false}
+            guildId={guildId}
+            key={e.emoteUrl}
+          />
+        ))}
       </div>
     </div>
   );

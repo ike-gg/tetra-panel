@@ -1,5 +1,5 @@
 import { TypographyH2 } from "../ui/typography";
-import { Emote } from "./Emote";
+import { Emote } from "../emote/Emote";
 import { useQuery } from "@tanstack/react-query";
 import * as Alert from "../ui/alert";
 import { useEffect, useRef, useState } from "react";
@@ -7,6 +7,7 @@ import { type QueryEmoteFn } from "~/lib/emotes/query";
 import { Skeleton } from "../ui/skeleton";
 import { Button } from "../ui/button";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import { AnimatePresence } from "framer-motion";
 
 interface Props {
   query: string;
@@ -83,17 +84,22 @@ export function EmotesProvider({
           </Alert.AlertDescription>
         </Alert.Alert>
       )}
-      <div className="flex flex-wrap justify-between gap-3">
-        {isLoading &&
-          Array.from({ length: rows * (columns ?? 0) }).map((_, i) => (
-            <div className="flex flex-col gap-1" key={i + "el" + providerName}>
-              <Skeleton className="h-20 w-20" />
-              <Skeleton className="h-4 w-20 rounded-sm" />
-            </div>
+      <div className="flex flex-wrap gap-3">
+        <AnimatePresence mode="wait">
+          {isLoading &&
+            Array.from({ length: rows * (columns ?? 0) }).map((_, i) => (
+              <div
+                className="flex flex-col gap-1"
+                key={i + "el" + providerName}
+              >
+                <Skeleton className="h-20 w-20" />
+                <Skeleton className="h-4 w-20 rounded-sm" />
+              </div>
+            ))}
+          {data?.map((emote) => (
+            <Emote details={emote} key={emote.reference + emote.origin} />
           ))}
-        {data?.map((emote) => (
-          <Emote details={emote} key={emote.reference + emote.origin} />
-        ))}
+        </AnimatePresence>
       </div>
       {true && (
         <nav className="flex items-center justify-center gap-2">

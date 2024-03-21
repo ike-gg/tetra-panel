@@ -11,10 +11,7 @@ import { useRouter } from "next/navigation";
 import { routes } from "~/constants/routes";
 import * as Select from "../ui/select";
 import { useEffect, useState } from "react";
-import {
-  type ContextGuild,
-  useEmoteContextStore,
-} from "~/app/store/emoteContextStore";
+import { type ContextGuild, useGuildStore } from "~/app/store/guildStore";
 import { getGuildIcon, parseTetraApiError } from "~/lib/utils";
 import { Input } from "../ui/input";
 import { z } from "zod";
@@ -46,7 +43,7 @@ type FormSchema = z.infer<typeof formSchema>;
 
 export const SubmitEmote = ({ isCorrectSize, modifiedBase64, task }: Props) => {
   const router = useRouter();
-  const userGuilds = useEmoteContextStore((s) => s.guilds);
+  const userGuilds = useGuildStore((s) => s.guilds);
 
   const form = useForm<FormSchema>({
     defaultValues: { emoteName: task.emoteName },

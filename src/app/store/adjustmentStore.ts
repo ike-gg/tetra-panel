@@ -1,6 +1,6 @@
 import { create } from "zustand";
+import { type FittingOptions } from "~/types";
 
-export type FittingOption = "contain" | "fill" | "cover";
 export type CroppingDetails = {
   x1: number;
   y1: number;
@@ -15,7 +15,7 @@ export interface AdjustmentOptionsStateProperties {
   frameRate?: number;
   cut?: [number, number];
   crop?: CroppingDetails;
-  fitting: FittingOption;
+  fitting: FittingOptions;
 }
 
 interface AdjustmentOptionsStateMethods {
@@ -25,7 +25,7 @@ interface AdjustmentOptionsStateMethods {
   setScale: (value: number) => void;
   setCut: (value: [number, number]) => void;
   setFrameRate: (value: number) => void;
-  setFitting: (value: FittingOption) => void;
+  setFitting: (value: FittingOptions) => void;
   removeLossy: () => void;
   removeColors: () => void;
   removeCrop: () => void;
